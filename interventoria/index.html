@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Curso interactivo del Procedimiento de Interventoría de Proyectos de Obras Civiles INT-1 v14.">
+<meta name="theme-color" content="#F7F9FB">
+<style>
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0}
+  [hidden]{display:none!important}
+  img{max-width:100%}
+</style>
+<title>Procedimiento INT-1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Una columna, lectura secuencial. Cabecera fija con avance; tarjeta de contenido sobre fondo neutro. */
+:root{
+  --papel:#EEF2F5; --carta:#FFFFFF; --tinta:#13202C; --gris:#5C7183;
+  --azul:#155E93; --azul-sup:#E2EDF5; --azul-bd:#B9D3E6;
+  --ambar:#9A6500; --ambar-sup:#FBF1DD; --ambar-bd:#E8CC97;
+  --ok:#17684A; --ok-sup:#E2F1EA; --mal:#A33225; --mal-sup:#FAE8E5;
+  --bd:#D3DDE5; --bd2:#BAC8D3;
+  --som:0 1px 2px rgba(19,32,44,.07), 0 8px 22px -16px rgba(19,32,44,.35);
+  --ui:'Barlow',system-ui,-apple-system,Segoe UI,sans-serif;
+  --tit:'Barlow Condensed','Barlow',system-ui,sans-serif;
+  --txt:'Source Serif 4',Georgia,'Times New Roman',serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --papel:#0E1821; --carta:#16232E; --tinta:#E6EEF4; --gris:#94A8B8;
+  --azul:#6CAEDC; --azul-sup:#13293A; --azul-bd:#27475E;
+  --ambar:#E0AC55; --ambar-sup:#2C2314; --ambar-bd:#4E3E1E;
+  --ok:#5FC498; --ok-sup:#102A20; --mal:#EE8F80; --mal-sup:#2E1A16;
+  --bd:#283744; --bd2:#36485806;
+  --bd2:#36485A;
+  --som:0 1px 2px rgba(0,0,0,.4), 0 8px 22px -16px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --papel:#0E1821; --carta:#16232E; --tinta:#E6EEF4; --gris:#94A8B8;
+  --azul:#6CAEDC; --azul-sup:#13293A; --azul-bd:#27475E;
+  --ambar:#E0AC55; --ambar-sup:#2C2314; --ambar-bd:#4E3E1E;
+  --ok:#5FC498; --ok-sup:#102A20; --mal:#EE8F80; --mal-sup:#2E1A16;
+  --bd:#283744; --bd2:#36485A;
+  --som:0 1px 2px rgba(0,0,0,.4), 0 8px 22px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--papel);color:var(--tinta);font-family:var(--ui);font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+:is(button,input,select,a,textarea):focus-visible{outline:3px solid var(--ambar);outline-offset:2px;border-radius:4px}
+h1,h2,h3{margin:0;font-family:var(--tit);text-wrap:balance;letter-spacing:.005em}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+
+/* cabecera */
+.tope{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--carta);border-bottom:1px solid var(--bd)}
+.tope .fila{max-width:760px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.marca{font-family:var(--tit);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--azul);white-space:nowrap}
+.cod{font-family:var(--ui);font-weight:600;font-size:11.5px;letter-spacing:.08em;background:var(--azul-sup);color:var(--azul);
+  border:1px solid var(--azul-bd);border-radius:3px;padding:2px 7px;white-space:nowrap}
+.tope .der{margin-left:auto;font-size:12.5px;color:var(--gris);font-weight:500;white-space:nowrap}
+.barra{height:4px;background:var(--bd)}
+.barra i{display:block;height:100%;background:var(--azul);width:0;transition:width .35s ease}
+
+.marco{max-width:760px;margin:0 auto;padding-inline:18px;padding-block:22px 72px}
+.tarj{background:var(--carta);border:1px solid var(--bd);border-radius:10px;box-shadow:var(--som);padding:22px 20px}
+@media (max-width:480px){.tarj{padding:18px 15px}}
+
+/* portada */
+.port h1{font-size:clamp(27px,7vw,40px);line-height:1.05;font-weight:700}
+.port .sub{font-family:var(--tit);font-size:clamp(16px,4vw,19px);color:var(--azul);font-weight:600;margin-top:4px;letter-spacing:.01em}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{font-size:12.5px;font-weight:500;background:var(--papel);border:1px solid var(--bd);border-radius:20px;padding:4px 12px;color:var(--gris)}
+.intro{font-family:var(--txt);font-size:16.5px;line-height:1.62;margin-top:18px;color:var(--tinta)}
+.intro + .intro{margin-top:12px}
+.aviso{background:var(--ambar-sup);border:1px solid var(--ambar-bd);border-left:4px solid var(--ambar);
+  border-radius:0 7px 7px 0;padding:13px 15px;margin-top:18px;font-size:14.5px;line-height:1.55}
+.aviso b{color:var(--ambar)}
+
+/* formulario */
+.campos{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px;margin-top:6px}
+label.f{display:block;font-size:12.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--gris);margin-bottom:5px}
+.campo input,.campo select{width:100%;background:var(--carta);border:1.5px solid var(--bd2);border-radius:6px;padding:10px 11px;font-size:16px}
+.campo input:hover,.campo select:hover{border-color:var(--azul)}
+.err{color:var(--mal);font-size:13px;margin-top:10px;font-weight:500}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--azul);background:var(--azul);
+  color:var(--carta);border-radius:7px;padding:12px 22px;font-size:15.5px;font-weight:600;cursor:pointer;font-family:var(--ui)}
+.btn:hover{filter:brightness(1.1)}
+.btn.sec{background:transparent;color:var(--azul)}
+.btn.sec:hover{background:var(--azul-sup);filter:none}
+.btn.gris{background:transparent;border-color:var(--bd2);color:var(--gris)}
+.btn.gris:hover{background:var(--papel);color:var(--tinta)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;filter:none}
+.btn.ancho{width:100%}
+.pie{display:flex;gap:10px;align-items:center;margin-top:22px;flex-wrap:wrap}
+.pie .sp{margin-left:auto}
+
+/* módulo */
+.ficha{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.ficha .n{font-family:var(--tit);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ambar)}
+.mod h2{font-size:clamp(21px,5.2vw,28px);line-height:1.15;font-weight:700;margin-bottom:16px}
+.cuerpo{font-family:var(--txt);font-size:16.5px;line-height:1.66}
+.cuerpo p{margin-bottom:13px}
+.cuerpo b{font-weight:600}
+.cuerpo h3{font-family:var(--tit);font-size:17px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--azul);margin:22px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--bd)}
+.cuerpo ul{margin:0 0 14px;padding-left:20px}
+.cuerpo li{margin-bottom:8px}
+.cuerpo ol{margin:0 0 14px;padding-left:22px}
+.clave{background:var(--azul-sup);border:1px solid var(--azul-bd);border-radius:7px;padding:13px 15px;margin-bottom:14px;
+  font-family:var(--ui);font-size:15px;line-height:1.52}
+.alert{background:var(--ambar-sup);border:1px solid var(--ambar-bd);border-left:4px solid var(--ambar);border-radius:0 7px 7px 0;
+  padding:13px 15px;margin-bottom:14px;font-family:var(--ui);font-size:15px;line-height:1.52}
+.cita{border-left:3px solid var(--azul);padding:4px 0 4px 15px;margin-bottom:14px}
+.cita .t{font-family:var(--tit);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--azul);margin-bottom:5px}
+.cita .c{font-style:italic;font-size:15.5px;line-height:1.6}
+.tabx{overflow-x:auto;margin-bottom:14px}
+table.t{border-collapse:collapse;width:100%;font-family:var(--ui);font-size:14.5px}
+table.t td{border-bottom:1px solid var(--bd);padding:9px 10px;vertical-align:top}
+table.t tr td:first-child{font-weight:600;color:var(--azul);white-space:nowrap;width:1%}
+.par{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:11px;margin-bottom:14px}
+.par > div{border:1px solid var(--bd);border-radius:7px;padding:12px 13px;font-family:var(--ui)}
+.par .k{font-family:var(--tit);font-weight:700;font-size:14.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--azul);margin-bottom:4px}
+.par .v{font-size:14px;line-height:1.5}
+.mapa{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+.mapa > div{border:1px solid var(--bd);border-left:4px solid var(--azul);border-radius:0 7px 7px 0;padding:11px 14px;font-family:var(--ui)}
+.mapa .k{font-family:var(--tit);font-weight:700;font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:var(--azul)}
+.mapa .d{font-size:12.5px;color:var(--gris);font-weight:500;margin-bottom:5px}
+.mapa .v{font-size:14.5px;line-height:1.5}
+.seis{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:9px;margin-bottom:14px}
+.seis > div{background:var(--papel);border:1px solid var(--bd);border-radius:7px;padding:10px 12px;font-family:var(--ui)}
+.seis .k{font-family:var(--tit);font-weight:700;font-size:14px;letter-spacing:.1em;color:var(--ambar)}
+.seis .v{font-size:13.5px;line-height:1.45;color:var(--gris)}
+.cargo{border:1px solid var(--bd);border-radius:8px;margin-bottom:12px;overflow:hidden}
+.cargo .h{background:var(--azul-sup);border-bottom:1px solid var(--azul-bd);padding:9px 14px;
+  font-family:var(--tit);font-weight:700;font-size:16px;letter-spacing:.04em;color:var(--azul)}
+.cargo ul{margin:0;padding:12px 14px 12px 32px;font-family:var(--ui);font-size:14.5px}
+.cargo li{margin-bottom:7px}
+.cargo li:last-child{margin-bottom:0}
+.infx{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.infx > div{border:1px solid var(--bd);border-radius:8px;padding:12px 14px;font-family:var(--ui)}
+.infx .r{display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;margin-bottom:5px}
+.infx .k{font-family:var(--tit);font-weight:700;font-size:16px;letter-spacing:.03em}
+.infx .f{font-size:11.5px;font-weight:600;letter-spacing:.06em;background:var(--ambar-sup);color:var(--ambar);
+  border:1px solid var(--ambar-bd);border-radius:3px;padding:2px 7px}
+.infx .v{font-size:14.5px;line-height:1.5;color:var(--gris)}
+.sec{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;counter-reset:s}
+.sec > div{display:flex;gap:13px;align-items:flex-start;font-family:var(--ui)}
+.sec .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--azul);color:var(--carta);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.sec .k{font-family:var(--tit);font-weight:700;font-size:16px;letter-spacing:.03em;margin-bottom:3px}
+.sec .v{font-size:14.5px;line-height:1.52}
+
+/* preguntas */
+.preg{border-top:2px solid var(--bd);margin-top:26px;padding-top:20px}
+.preg .et{font-family:var(--tit);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ambar);margin-bottom:12px}
+.q{margin-bottom:22px}
+.q:last-child{margin-bottom:0}
+.q .t{font-weight:600;font-size:16.5px;line-height:1.45;margin-bottom:12px}
+.ops{display:flex;flex-direction:column;gap:8px}
+.op{display:flex;gap:11px;align-items:flex-start;border:1.5px solid var(--bd);border-radius:7px;padding:11px 13px;
+  cursor:pointer;background:var(--carta);text-align:left;font-size:15.5px;line-height:1.42;width:100%;font-family:var(--ui)}
+.op:hover:not(:disabled){border-color:var(--azul);background:var(--azul-sup)}
+.op .l{flex:none;width:23px;height:23px;border-radius:50%;border:1.5px solid var(--bd2);display:flex;align-items:center;
+  justify-content:center;font-size:12.5px;font-weight:700;color:var(--gris)}
+.op.sel{border-color:var(--azul);background:var(--azul-sup)}
+.op.sel .l{background:var(--azul);border-color:var(--azul);color:var(--carta)}
+.op.bien{border-color:var(--ok);background:var(--ok-sup)}
+.op.bien .l{background:var(--ok);border-color:var(--ok);color:var(--carta)}
+.op.mal{border-color:var(--mal);background:var(--mal-sup)}
+.op.mal .l{background:var(--mal);border-color:var(--mal);color:var(--carta)}
+.op:disabled{cursor:default}
+.fb{margin-top:11px;border-radius:7px;padding:11px 13px;font-size:14.5px;line-height:1.52}
+.fb.bien{background:var(--ok-sup);border:1px solid var(--ok)}
+.fb.mal{background:var(--mal-sup);border:1px solid var(--mal)}
+.fb .v{font-weight:700;margin-bottom:3px;font-family:var(--tit);font-size:15px;letter-spacing:.04em;text-transform:uppercase}
+.fb.bien .v{color:var(--ok)} .fb.mal .v{color:var(--mal)}
+
+/* evaluación */
+.evcab{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.evcab .c{font-family:var(--tit);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.puntos{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.puntos i{width:9px;height:9px;border-radius:50%;background:var(--bd);display:block}
+.puntos i.on{background:var(--azul)}
+
+/* resultado */
+.res{text-align:center;padding:10px 0 4px}
+.res .anillo{width:132px;height:132px;margin:0 auto 16px;position:relative}
+.res .anillo svg{transform:rotate(-90deg)}
+.res .anillo .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.res .anillo .p{font-family:var(--tit);font-size:38px;font-weight:700;line-height:1}
+.res .anillo .s{font-size:12px;color:var(--gris);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.res h2{font-size:25px;font-weight:700}
+.res .d{color:var(--gris);margin-top:6px;font-size:15px}
+.datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:1px;background:var(--bd);
+  border:1px solid var(--bd);border-radius:8px;overflow:hidden;margin-top:20px}
+.datos > div{background:var(--carta);padding:12px 10px;text-align:center}
+.datos .k{font-size:11.5px;color:var(--gris);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.datos .v{font-family:var(--tit);font-size:23px;font-weight:700;margin-top:2px}
+
+/* declaración y comprobante */
+.decl{background:var(--papel);border:1px solid var(--bd);border-radius:8px;padding:16px;margin-top:20px}
+.decl .t{font-family:var(--tit);font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--azul);margin-bottom:9px}
+.decl p{font-size:14.5px;line-height:1.58}
+.chk{display:flex;gap:11px;align-items:flex-start;margin-top:14px;cursor:pointer;font-size:15px;line-height:1.45;font-weight:500}
+.chk input{width:21px;height:21px;accent-color:var(--azul);flex:none;margin:0;cursor:pointer}
+.comp{border:2px solid var(--azul);border-radius:9px;overflow:hidden;margin-top:20px}
+.comp .h{background:var(--azul);color:var(--carta);padding:11px 15px;font-family:var(--tit);font-weight:700;
+  font-size:16px;letter-spacing:.06em;text-transform:uppercase}
+.comp .b{padding:15px}
+.comp .lista{font-size:14.5px;line-height:1.75}
+.comp .lista b{font-weight:600;color:var(--gris);font-weight:500}
+.codigo{background:var(--papel);border:1px dashed var(--bd2);border-radius:7px;padding:12px;margin-top:13px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.5;
+  word-break:break-all;user-select:all;-webkit-user-select:all}
+.nota{font-size:13.5px;color:var(--gris);line-height:1.55;margin-top:12px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--tinta);color:var(--papel);
+  padding:11px 18px;border-radius:8px;font-size:14.5px;font-weight:500;z-index:50;box-shadow:0 8px 26px -8px rgba(0,0,0,.55)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<header class="tope">
+  <div class="fila">
+    <span class="marca">ING Ingeniería</span>
+    <span class="cod" id="cCod"></span>
+    <span class="der" id="cPaso"></span>
+  </div>
+  <div class="barra"><i id="cBarra"></i></div>
+</header>
+
+<div class="marco" id="vista"></div>
+
+<script id="datos" type="application/json">{
+"id":"INT",
+"codigo":"INT-1",
+"version":"14",
+"fechaDoc":"01-11-2024",
+"titulo":"Procedimiento de Interventoría de Proyectos de Obras Civiles",
+"subtitulo":"ING Ingeniería S.A.S.",
+"dirigido":"Directores, coordinadores, residentes y personal técnico de interventoría",
+"minutos":35,
+"aprobacion":80,
+"nPreguntas":20,
+"modulos":[
+{
+"t":"Objetivo, alcance y la regla de prelación",
+"bloques":[
+{"tipo":"p","c":"El INT-1 establece las disposiciones generales que emplea ING Ingeniería S.A.S. para desarrollar las actividades del servicio de <b>interventoría de proyectos de obras civiles<\/b>."},
+{"tipo":"p","c":"La interventoría es la actividad mediante la cual la empresa <b>verifica que la ejecución de un proyecto de infraestructura se desarrolle de acuerdo con lo establecido por el Cliente en los documentos del contrato<\/b>."},
+{"tipo":"alerta","c":"Regla de prelación, la más importante y la que más se olvida: cuando el Cliente establece formatos y procedimientos propios a través de Manuales de Interventoría u otros documentos, <b>esos priman sobre los procedimientos internos<\/b> de ING Ingeniería."},
+{"tipo":"p","c":"En la práctica esto significa que antes de empezar a llenar un formato INT usted debe verificar si el cliente, por ejemplo Findeter o una entidad territorial, tiene su propio formato para esa actividad. Si lo tiene, se usa el del cliente."},
+{"tipo":"clave","c":"Siempre que en este procedimiento se diga «o el formato establecido por el Cliente», se está aplicando esta regla."}
+],
+"preguntas":[
+{"q":"El Cliente entregó su propio Manual de Interventoría con formatos distintos a los INT de la empresa. ¿Qué se aplica?","op":["Siempre los formatos INT de ING Ingeniería","Los formatos del Cliente, porque priman sobre los internos","Los que decida el residente","Ambos en paralelo"],"ok":1,"exp":"La regla de prelación del numeral de alcance es explícita: cuando el Cliente establece formatos y procedimientos, estos priman sobre los procedimientos internos de ING Ingeniería."},
+{"q":"¿Cómo define el procedimiento la actividad de interventoría?","op":["Ejecutar la obra en nombre del cliente","Verificar que la ejecución del proyecto se desarrolle de acuerdo con lo establecido por el Cliente en los documentos del contrato","Diseñar las obras del proyecto","Supervisar únicamente el presupuesto"],"ok":1,"exp":"La interventoría verifica, no ejecuta. Su función es comprobar que el contratista cumpla lo pactado en los documentos del contrato."},
+{"q":"¿Cuántos tipos de actividades principales comprende la interventoría según el INT-1?","op":["Cinco","Seis","Ocho","Diez"],"ok":2,"exp":"Son ocho: planificación, iniciación, supervisión técnica, administrativa, financiera, ambiental social y SST, informes, y entrega y liquidación."}
+]
+},
+{
+"t":"Responsabilidades por cargo",
+"bloques":[
+{"tipo":"p","c":"Esta es la sección que determina qué le corresponde a usted. Léala buscando su cargo."},
+{"tipo":"cargo","nom":"Gerente","items":["Velar por el cumplimiento del procedimiento.","Mantener la comunicación con el Cliente en aspectos legales, administrativos u operativos de alto impacto. Puede delegar esa autoridad en el Director de Interventoría.","Implementar mecanismos de seguimiento y control del servicio.","Implementar mecanismos de identificación, gestión y seguimiento de riesgos y oportunidades."]},
+{"tipo":"cargo","nom":"Director de Proyecto","items":["Ejecutar la interventoría conforme a los requisitos del Cliente y del procedimiento.","Verificar el cumplimiento de las acciones descritas en el documento.","<b>Revisar los registros y visar los documentos<\/b> inherentes a los proyectos.","Mantener la comunicación con el cliente procurando su satisfacción.","Asegurar el cumplimiento oportuno de las metas del Sistema Integrado de Gestión.","Analizar, identificar, aprobar y gestionar los riesgos y oportunidades del proyecto."]},
+{"tipo":"cargo","nom":"Coordinador de Proyecto","items":["Diligenciar los formatos de su responsabilidad.","<b>Definir la estructura documental<\/b> que asegure la preservación de la información del proyecto.","Generar mecanismos de comunicación entre las actividades de campo y la oficina central.","Apoyar el análisis, identificación y gestión de riesgos."]},
+{"tipo":"cargo","nom":"Ingenieros Residentes y personal profesional y técnico","items":["Diligenciar los formatos de su responsabilidad.","Ejecutar la interventoría conforme a los requisitos del Cliente.","<b>Llevar todos los formatos inherentes a sus cargos.<\/b>","Implementar en las obras los procedimientos técnicos establecidos por el cliente y la normatividad vigente.","Apoyar el análisis, identificación y gestión de riesgos."]},
+{"tipo":"cargo","nom":"Jefe Administrativa","items":["Gestionar los recursos humanos y logísticos necesarios para la correcta ejecución del proyecto.","Apoyar la gestión de riesgos y oportunidades."]},
+{"tipo":"cargo","nom":"Jefe de Calidad","items":["Atender las solicitudes de modificación o elaboración de documentos del proceso de interventoría.","<b>Verificar la implementación del procedimiento.<\/b>"]},
+{"tipo":"cargo","nom":"Jefe SST","items":["Asegurar la implementación de las disposiciones definidas en el SG-SST."]}
+],
+"preguntas":[
+{"q":"¿Quién es responsable de revisar los registros y visar los documentos del proyecto?","op":["El Coordinador de Proyecto","El Director de Proyecto","El Ingeniero Residente","El Jefe de Calidad"],"ok":1,"exp":"Es una responsabilidad expresa del Director de Proyecto, junto con verificar el cumplimiento de las acciones del procedimiento."},
+{"q":"Definir la estructura documental que asegure la preservación de la información del proyecto le corresponde a:","op":["El Jefe de Calidad","El Gerente","El Coordinador de Proyecto","La Asistente de Proyecto"],"ok":2,"exp":"Es responsabilidad del Coordinador de Proyecto, quien además genera los mecanismos de comunicación entre campo y oficina central."},
+{"q":"La comunicación con el Cliente en aspectos legales y administrativos de alto impacto corresponde al Gerente, quien:","op":["No puede delegarla bajo ninguna circunstancia","Puede delegarla en el Director de Interventoría","Debe delegarla siempre en el Coordinador","Solo la ejerce si el cliente lo solicita"],"ok":1,"exp":"El procedimiento establece que el Gerente puede delegar en el Director de la Interventoría la autoridad para comunicarse con el Cliente."},
+{"q":"Verificar la implementación del procedimiento INT-1 es responsabilidad de:","op":["El Jefe de Calidad","El Director de Proyecto","El Gerente","El Coordinador"],"ok":0,"exp":"El Jefe de Calidad verifica la implementación del procedimiento y atiende las solicitudes de modificación o elaboración de documentos del proceso."}
+]
+},
+{
+"t":"Planificación del servicio",
+"bloques":[
+{"tipo":"p","c":"La planificación arranca apenas se firma el contrato y define con qué equipo y con qué documentos se va a trabajar."},
+{"tipo":"clave","c":"La Gerencia designa al <b>Director del Proyecto dentro de los diez (10) días<\/b> siguientes a la suscripción del contrato."},
+{"tipo":"p","c":"El Director, previa verificación de la propuesta presentada, propone los nombres de los Ingenieros Residentes, el Coordinador y el demás personal, cumpliendo los requisitos del Cliente y los perfiles de cargo mínimos. Las hojas de vida que requieran aprobación se remiten al Cliente."},
+{"tipo":"p","c":"La información del personal del proyecto queda registrada en el <b>INT-3 Plan de Calidad del Proyecto<\/b>."},
+{"tipo":"h","c":"Documentos de entrada"},
+{"tipo":"lista","items":["<b>Información contractual:<\/b> pliegos de condiciones, propuesta del contratista, contrato objeto de la interventoría, pólizas, contrato entre el Cliente e ING Ingeniería y demás documentos contractuales.","<b>Información del Cliente y del Contratista:<\/b> plan de calidad del contratista, recursos ofrecidos, estudios, diseños y planos.","<b>Requisitos estatutarios y reglamentarios:<\/b> normas y especificaciones externas de obligatorio cumplimiento."]},
+{"tipo":"h","c":"Los tres registros de la planificación"},
+{"tipo":"tabla","c":[["INT-93","Acta de Planificación. Describe los recursos necesarios para el proyecto."],["GD-5","Listado Maestro de Documentos y Registros. Debe actualizarse con los formatos del proyecto."],["INT-3","Plan de Calidad del Proyecto, siguiendo el instructivo INT-19."]]},
+{"tipo":"alerta","c":"El INT-3 lo elabora el <b>Director con el Coordinador y la participación del Jefe de Calidad<\/b>. Se entrega copia al Ingeniero Residente para su implementación y divulgación en obra, y debe <b>actualizarse periódicamente<\/b> durante la ejecución."}
+],
+"preguntas":[
+{"q":"¿En qué plazo designa la Gerencia al Director del Proyecto?","op":["Antes de firmar el contrato","Dentro de los 10 días siguientes a suscrito el contrato","Dentro del primer mes","Cuando lo apruebe el cliente"],"ok":1,"exp":"Diez días calendario después de suscrito el contrato. Es un plazo expreso del procedimiento."},
+{"q":"¿En qué formato queda registrada la información del personal del proyecto?","op":["INT-93 Acta de Planificación","INT-40 Personal del contratista","INT-3 Plan de Calidad del Proyecto","GH-10 Programa de capacitación"],"ok":2,"exp":"En el INT-3 Plan de Calidad del Proyecto. El INT-40 es para el personal del contratista, no el de la interventoría."},
+{"q":"¿Quiénes elaboran el INT-3 Plan de Calidad del Proyecto?","op":["El Ingeniero Residente solo","El Director con el Coordinador y la participación del Jefe de Calidad","El Jefe de Calidad solo","El Gerente y el cliente"],"ok":1,"exp":"Lo elabora el Director de Proyecto en conjunto con el Coordinador, con participación del Jefe de Calidad. La copia se entrega al Residente para implementarlo y divulgarlo en obra."},
+{"q":"El acta donde se describen los recursos necesarios para el desarrollo del proyecto es:","op":["INT-17","INT-93","INT-24","INT-30"],"ok":1,"exp":"El INT-93 Acta de Planificación. El INT-17 es el acta de iniciación y el INT-24 el acta de seguimiento."}
+]
+},
+{
+"t":"Iniciación del proyecto y la bitácora",
+"bloques":[
+{"tipo":"p","c":"El Cliente, el Contratista y el Interventor suscriben el acta de inicio en el formato <b>INT-17 Acta de Iniciación<\/b>, o el establecido por el Cliente. Desde esa fecha empieza a contarse el plazo contractual."},
+{"tipo":"clave","c":"Con el acta de inicio, el <b>Coordinador del proyecto<\/b> debe solicitar la actualización de las garantías."},
+{"tipo":"h","c":"El libro bitácora"},
+{"tipo":"p","c":"El <b>Ingeniero Residente<\/b> abre, con la fecha de iniciación de las obras, un <b>libro de pasta dura, foliado<\/b>, donde consigna <b>diariamente<\/b> los hechos relevantes sucedidos en la obra."},
+{"tipo":"lista","items":["Está a disposición del personal profesional del contratista y del representante autorizado del Cliente, quienes pueden hacer comentarios u observaciones.","Copia de la bitácora hace parte del informe final de interventoría.","El Residente debe <b>anotar en la bitácora y notificar al Director<\/b> cualquier situación que se aparte de lo dispuesto en el proyecto aprobado por el Cliente."]},
+{"tipo":"alerta","c":"Si el contratista no corrige dentro de los tiempos previstos en los pliegos, el Residente informa al Director del Proyecto, y es el Director quien requiere formalmente al contratista."}
+],
+"preguntas":[
+{"q":"¿Quién abre el libro bitácora y con qué fecha?","op":["El Director, con la fecha del contrato","El Ingeniero Residente, con la fecha de iniciación de las obras","El Coordinador, con la fecha del acta de planificación","El contratista, cuando llegue a obra"],"ok":1,"exp":"El Ingeniero Residente lo abre con la fecha de iniciación de las obras. Debe ser un libro de pasta dura y foliado."},
+{"q":"Con el acta de inicio, ¿quién debe solicitar la actualización de las garantías?","op":["El Gerente","El Director de Proyecto","El Coordinador del proyecto","El Jefe Administrativo"],"ok":2,"exp":"Es una responsabilidad expresa del Coordinador del proyecto una vez suscrita el acta de inicio."},
+{"q":"El contratista está ejecutando algo que se aparta del proyecto aprobado. ¿Qué hace el Residente?","op":["Lo deja constar solo en el informe mensual","Anota en la bitácora, notifica al contratista y avisa al Director de Proyecto","Detiene la obra por su cuenta","Informa directamente al cliente"],"ok":1,"exp":"El procedimiento indica notificar al contratista mediante anotación en la bitácora y comunicar al Director. Si no se corrige en los tiempos de los pliegos, el Director requiere formalmente al contratista."},
+{"q":"La copia del libro bitácora:","op":["Se archiva en la oficina y no se entrega","Hace parte del informe final de interventoría","Se entrega solo si el cliente la pide","Se destruye al terminar la obra"],"ok":1,"exp":"Copia de la bitácora hace parte del informe final de interventoría y de los informes que exija el cliente."}
+]
+},
+{
+"t":"Supervisión técnica y sus formatos",
+"bloques":[
+{"tipo":"p","c":"Es el núcleo del trabajo en obra. Toda la información de este capítulo alimenta el informe mensual, que debe contener el <b>INT-11 Resumen Ejecutivo<\/b> o el formato del Cliente."},
+{"tipo":"h","c":"El formato que sostiene todo: INT-8"},
+{"tipo":"clave","c":"El <b>INT-8 Informe Diario de Inspección<\/b> es la fuente primaria de información de la obra. Lo elabora el personal técnico y lo <b>revisa y aprueba el Ingeniero Residente<\/b>. Cuando no hay inspector de obra, lo elabora el propio Residente."},
+{"tipo":"p","c":"En el INT-8 se consigna el control técnico diario, la cantidad de obra ejecutada, el control de recursos del contratista, el estado del tiempo, el control de muestras para ensayos, la procedencia de materiales y cualquier irregularidad laboral detectada."},
+{"tipo":"h","c":"Los demás formatos técnicos"},
+{"tipo":"tabla","c":[["INT-2","Control de Planos. Planos de construcción y planos récord."],["INT-13","Programa de ensayos de control de calidad de obra."],["INT-76","Reporte mensual de ensayos de laboratorio."],["INT-75","Control de equipos de medición propios de la empresa."],["INT-40","Personal del contratista, mensual."],["INT-41","Equipo del contratista, con su estado: operando, en reparación o inactivo."],["INT-39","Control atmosférico, recopilado del INT-8."],["INT-37","Registro diario de niveles, cuando se trabaja sobre cuerpos de agua."],["INT-56","Registro fotográfico, incluida la valla informativa."]]},
+{"tipo":"h","c":"La norma técnica según el tipo de obra"},
+{"tipo":"dos","c":[["Hidráulica y sanitaria","Reglamento RAS vigente, en especial el título G"],["Vial","Especificaciones del INVIAS vigentes, o las del cliente"]]},
+{"tipo":"dos","c":[["Edificaciones, puentes y túneles","Norma Sismorresistente NSR vigente"],["Estudios y diseños","Instructivo INT-92"]]},
+{"tipo":"p","c":"Los equipos de medición deben estar <b>calibrados con patrones trazables<\/b>. Si son alquilados, se solicitan al proveedor los certificados de calibración, y esos equipos se consignan en el INT-3, no en el INT-75."}
+],
+"preguntas":[
+{"q":"El INT-8 Informe Diario de Inspección lo elabora el personal técnico y es:","op":["Enviado directamente al cliente","Revisado y aprobado por el Ingeniero Residente","Archivado sin revisión","Aprobado por el Coordinador"],"ok":1,"exp":"Lo revisa y aprueba el Ingeniero Residente, y con él se generan los informes que solicita el cliente. Cuando no hay inspector de obra, el propio Residente lo elabora."},
+{"q":"En un proyecto de construcción de redes de alcantarillado, ¿qué normativa técnica se aplica?","op":["Norma NSR vigente","Especificaciones INVIAS","Reglamento RAS vigente, en especial el título G","Instructivo INT-92"],"ok":2,"exp":"Para infraestructura hidráulica y sanitaria se sigue el Reglamento Técnico del Sector de Agua Potable y Saneamiento Básico, RAS, con énfasis en el título G."},
+{"q":"¿En qué formato se registra el equipo del contratista indicando cuál opera, cuál está en reparación y cuál inactivo?","op":["INT-40","INT-41","INT-75","INT-8"],"ok":1,"exp":"El INT-41 Equipo del Contratista, que se recopila mensualmente a partir del registro diario del INT-8. El INT-40 es para el personal del contratista."},
+{"q":"Un equipo de medición alquilado a un proveedor externo se consigna en:","op":["INT-75 Control de equipos de medición","INT-3 Plan de Calidad del proyecto","INT-8 Informe diario","No se registra"],"ok":1,"exp":"Los equipos propios asignados al proyecto van en el INT-75; los suministrados por proveedores externos se consignan en el INT-3 Plan de Calidad, y debe solicitarse el certificado de calibración."},
+{"q":"En una obra de edificación, los puntos de control incluyen replanteo, dimensiones, cimentación, formaletas, aceros, concretos y mampostería, conforme a:","op":["INVIAS","RAS título G","Norma Sismorresistente NSR vigente","Decreto 1072"],"ok":2,"exp":"Para edificaciones, puentes y túneles se sigue la Norma de construcción Sismorresistente NSR vigente."},
+{"q":"El seguimiento fotográfico y la evidencia de instalación de la valla informativa se registran en:","op":["INT-2","INT-56","INT-11","INT-39"],"ok":1,"exp":"El INT-56 Registro Fotográfico, que sirve tanto para la valla como para el seguimiento fotográfico durante toda la ejecución."}
+]
+},
+{
+"t":"Supervisión administrativa y financiera",
+"bloques":[
+{"tipo":"h","c":"Comités y seguimiento"},
+{"tipo":"p","c":"El Ingeniero Residente celebra los comités periódicos de obra que requiera el cliente y levanta acta en el <b>INT-24 Acta de Seguimiento<\/b>. Allí se consignan las obras ejecutadas, los atrasos sobre lo programado, los problemas, los compromisos con sus responsables y los asuntos pendientes."},
+{"tipo":"h","c":"Pólizas y garantías"},
+{"tipo":"p","c":"El <b>Director de Proyecto<\/b> verifica que el Cliente permanezca cubierto con los riesgos, amparos y vigencias requeridos. El control se lleva en el <b>INT-6<\/b> para el contrato de consultoría e interventoría y en el <b>INT-7<\/b> para el contrato de obra."},
+{"tipo":"h","c":"Modificaciones contractuales"},
+{"tipo":"tabla","c":[["INT-43","Acta de Reiniciación"],["INT-45","Acta de Solicitud de Adición y/o Prórroga"],["INT-46","Acta de Suspensión del Contrato"]]},
+{"tipo":"h","c":"Condiciones laborales"},
+{"tipo":"p","c":"El Residente verifica que el personal en obra cuente con las garantías laborales vigentes, con énfasis en el <b>pago oportuno de parafiscales y seguridad social<\/b>. Cualquier irregularidad se consigna en el <b>INT-8<\/b> y se notifica al Contratista y al Cliente."},
+{"tipo":"h","c":"Actas de pago"},
+{"tipo":"p","c":"El Residente mide las cantidades de obra para efectos de pago y concilia con el contratista. El acta mensual se revisa y aprueba en el <b>INT-21 Acta de Obra Ejecutada<\/b> antes de remitirla al Cliente."},
+{"tipo":"h","c":"Control del anticipo"},
+{"tipo":"clave","c":"El Director, con apoyo del Coordinador, controla el anticipo verificando el <b>INT-28 Informe de Inversión y Buen Manejo de Anticipo<\/b> contra el extracto bancario, y que los cheques girados por ítem no superen lo previsto en el <b>INT-27 Programa de Inversión del Anticipo<\/b>."}
+],
+"preguntas":[
+{"q":"Los compromisos y responsables acordados en un comité de obra se consignan en:","op":["INT-8","INT-24","INT-23","INT-11"],"ok":1,"exp":"El INT-24 Acta de Seguimiento, o el formato del Cliente, donde quedan las obras ejecutadas, atrasos, problemas, compromisos, responsables y tiempos."},
+{"q":"Usted detecta que el contratista no está pagando la seguridad social de sus trabajadores. ¿Dónde lo consigna?","op":["En el INT-40","En el INT-8 Informe Diario de Inspección","En el INT-24","En la bitácora únicamente"],"ok":1,"exp":"Cualquier irregularidad en las condiciones laborales se consigna en el INT-8, y se notifica al contratista y al cliente para que se remedie de inmediato."},
+{"q":"El acta de suspensión del contrato corresponde al formato:","op":["INT-43","INT-45","INT-46","INT-30"],"ok":2,"exp":"INT-46 Acta de Suspensión. El INT-43 es de reiniciación y el INT-45 de solicitud de adición o prórroga."},
+{"q":"El control de pólizas y garantías del contrato de obra se lleva en:","op":["INT-6","INT-7","INT-21","INT-27"],"ok":1,"exp":"El INT-7 Ficha de Contrato de Obra. El INT-6 es la ficha del contrato de consultoría e interventoría."},
+{"q":"Para controlar el anticipo, el Director verifica el INT-28 contra:","op":["El informe mensual","El extracto de la cuenta bancaria donde se maneja el anticipo","El acta de inicio","El programa de ensayos"],"ok":1,"exp":"Se revisan los saldos con el extracto bancario, y además se verifica que los cheques girados por ítem no superen lo indicado en el INT-27 Programa de Inversión del Anticipo."}
+]
+},
+{
+"t":"Supervisión ambiental, social y SST",
+"bloques":[
+{"tipo":"p","c":"La ejecuta el Ingeniero Residente Ambiental o, en su defecto, el Ingeniero Residente de las obras civiles."},
+{"tipo":"lista","items":["<b>Desempeño ambiental:<\/b> evaluar el cumplimiento del Plan de Manejo Ambiental mediante resultados medibles. Se reporta en el <b>INT-29 Informe Ambiental de la Interventoría<\/b>.","<b>Escombros y material sobrante:<\/b> verificar que se dispongan en botaderos con autorización ambiental o identificados en el PMA, llevando control de la cantidad dispuesta y su sitio de depósito.","<b>Procedencia de materiales:<\/b> verificar que el material inerte provenga de cantera con explotación autorizada. Se consigna en el <b>INT-8<\/b>.","<b>Manejo de tránsito:<\/b> verificar el cumplimiento del PMT, en especial cuando se interviene espacio público.","<b>Gestión social:<\/b> cuando el proyecto afecta a la comunidad, verificar la existencia de planes de gestión social aprobados por el Cliente.","<b>Actas de vecindad:<\/b> antes de iniciar obras que puedan afectar bienes de terceros. Pueden levantarse en formato libre."]},
+{"tipo":"h","c":"Seguridad y salud en el trabajo"},
+{"tipo":"p","c":"El Director, Coordinador, Residente o Profesional SST verifica la implementación de las medidas de seguridad del Contratista, solicita la corrección de situaciones de riesgo y exige una planificación permanente de la seguridad."},
+{"tipo":"clave","c":"En el proyecto aplican el <b>SST-01<\/b> para identificación y valoración de riesgos, el <b>SST-54<\/b> matriz de requisitos, el <b>SST-03<\/b> para elementos de protección personal a cargo de la Asistente de Proyecto, y el <b>GH-10 Programa de capacitación<\/b>, en el que debe incluirse todo el personal del proyecto."},
+{"tipo":"alerta","c":"Si el proyecto requiere personal técnico externo, aplican el <b>SST-04 Control de Contratistas<\/b> y el <b>COM-2 Procedimiento de Compras<\/b>."}
+],
+"preguntas":[
+{"q":"El cumplimiento del Plan de Manejo Ambiental del contratista se reporta en:","op":["INT-8","INT-29","INT-39","INT-56"],"ok":1,"exp":"El INT-29 Informe Ambiental de la Interventoría, o el formato indicado por el Cliente, con resultados medibles de seguimiento, control y monitoreo."},
+{"q":"Antes de iniciar obras que puedan afectar bienes de terceros, el contratista debe levantar:","op":["Un acta de vecindad, que puede ser en formato libre","Un INT-30","Un informe extraordinario","Una póliza adicional"],"ok":0,"exp":"El Residente verifica que el contratista levante acta de vecindad antes de iniciar. El procedimiento permite que se haga en formato libre."},
+{"q":"La verificación de que el material inerte provenga de cantera autorizada se consigna en:","op":["INT-29","INT-8 Informe Diario de Inspección","INT-13","INT-41"],"ok":1,"exp":"Se consigna en el INT-8, y el Director notifica cualquier incumplimiento solicitando descargos al contratista y dando concepto al Cliente."},
+{"q":"La gestión de elementos de protección personal en el proyecto está a cargo de:","op":["El Ingeniero Residente","La Asistente de Proyecto, según el SST-03","El Jefe SST exclusivamente","El contratista"],"ok":1,"exp":"La Asistente de Proyecto asignada atiende lo descrito en el procedimiento SST-03 Gestión de elementos de protección personal, conforme a la identificación de riesgos realizada."}
+]
+},
+{
+"t":"Los informes: quién hace qué",
+"bloques":[
+{"tipo":"alerta","c":"Esta es la sección donde más se cometen errores. Para cada informe hay tres roles distintos: quién lo <b>elabora<\/b>, quién lo <b>estructura<\/b> y quién lo <b>revisa y aprueba<\/b>."},
+{"tipo":"p","c":"Mensualmente se diligencia el <b>INT-50 Programación presentación de informes<\/b> para verificar el cumplimiento en la entrega de los informes exigidos por el Cliente."},
+{"tipo":"informes","c":[
+["Informe Diario","INT-8","Responsabilidad del Ingeniero Residente, con el concurso del personal técnico. Es la fuente primaria de los demás reportes."],
+["Informe Semanal o quincenal","INT-23","Lo prepara el Director del Proyecto con el apoyo del Ingeniero Residente y el Coordinador."],
+["Informe Mensual","Instructivo INT-5 + INT-11","Lo elabora el Ingeniero Residente, lo estructura y complementa el Coordinador, y lo revisa y aprueba el Director."],
+["Informe de Gestión","INT-53","Lo recopila y elabora el Coordinador, lo revisa y aprueba el Director. Solo aplica cuando está pactado contractualmente."],
+["Informe Final","Instructivo INT-5 + INT-11","Lo elabora el Ingeniero Residente, lo estructura el Coordinador y lo aprueba el Director."],
+["Informes Extraordinarios","—","Solo por solicitud expresa del Cliente o cuando el Director lo considere necesario."]]},
+{"tipo":"clave","c":"Si el Cliente se queja del contenido o la forma de presentación de un informe, eso <b>no se resuelve informalmente<\/b>: se tramita a través del procedimiento <b>MC-1 Acciones Correctivas<\/b>."}
+],
+"preguntas":[
+{"q":"¿Quién elabora el Informe Mensual de Interventoría?","op":["El Coordinador del Proyecto","El Ingeniero Residente o el profesional asignado por la dirección","El Director de Proyecto","El Jefe de Calidad"],"ok":1,"exp":"Lo elabora el Ingeniero Residente, el Coordinador lo estructura y complementa, y el Director lo revisa y aprueba. Son tres roles distintos."},
+{"q":"¿Quién prepara el Informe Semanal?","op":["El Ingeniero Residente solo","El Director del Proyecto con apoyo del Residente y el Coordinador","El Coordinador solo","El inspector de obra"],"ok":1,"exp":"A diferencia del mensual, el semanal lo prepara el Director del Proyecto con el apoyo del Ingeniero Residente y el Coordinador."},
+{"q":"El Informe de Gestión INT-53:","op":["Se entrega siempre, en todos los proyectos","Solo aplica cuando su exigencia y periodicidad está establecida contractualmente","Lo elabora el Residente","Reemplaza al informe mensual"],"ok":1,"exp":"El procedimiento aclara que este tipo de informe solo aplica para aquellos proyectos donde su exigencia y periodicidad esté establecida contractualmente con el cliente."},
+{"q":"El Cliente se queja de la forma de presentación del informe mensual. ¿Qué procedimiento se activa?","op":["Se corrige y se reenvía sin más trámite","MC-1 Acciones Correctivas","INT-50","Se escala al Gerente"],"ok":1,"exp":"El INT-1 remite expresamente al procedimiento MC-1 de Acciones Correctivas cuando hay quejas del cliente sobre el contenido o la forma de los informes."},
+{"q":"¿En qué formato se verifica mensualmente el cumplimiento en la entrega de los informes exigidos por el cliente?","op":["INT-23","INT-50","INT-11","INT-53"],"ok":1,"exp":"El INT-50 Programación presentación de informes, que se diligencia mensualmente."},
+{"q":"Los informes extraordinarios se preparan:","op":["Cada vez que hay un atraso","Únicamente por solicitud expresa del Cliente o a juicio del Director de Proyecto","Semanalmente","Cuando lo pida el contratista"],"ok":1,"exp":"Solo por solicitud expresa del Cliente, o cuando a juicio del Director este deba enterarlo de alguna situación importante del proyecto."}
+]
+},
+{
+"t":"Entrega de obras y liquidación",
+"bloques":[
+{"tipo":"p","c":"Cumplido el plazo de ejecución, el Director, el Residente y el representante del Cliente realizan una <b>visita final de inspección<\/b> en compañía del Contratista."},
+{"tipo":"secuencia","c":[
+["1","Visita final de inspección","Se levanta el <b>INT-30 Acta de Terminación<\/b>, dejando constancia de observaciones sobre calidad o acabados y los compromisos del contratista con su fecha de cumplimiento."],
+["2","Planos récord","El <b>Director<\/b> aprueba los planos donde el contratista consigna dimensiones, localización y especificaciones de lo finalmente construido. Queda controlado en el <b>INT-2<\/b>."],
+["3","Recibo definitivo","Vencido el plazo de reparaciones, se verifica el cumplimiento y se proyecta el <b>INT-31 Acta de Recibo Definitivo<\/b>. Después el Interventor y el Cliente suscriben la suya."],
+["4","Liquidación","Se suscribe el <b>INT-32 Acta de Liquidación<\/b>, con el valor inicial y final del contrato, las pólizas de estabilidad, los acuerdos y el paz y salvo."],
+["5","Certificación","Como actividad final, el Director o el Gerente solicita al Cliente una certificación del trabajo ejecutado y la remite a la <b>Dirección Comercial<\/b> con copia de las actas."]]},
+{"tipo":"clave","c":"La solicitud de certificación no es un trámite menor: es la evidencia de experiencia con la que la empresa se presenta a futuras licitaciones."}
+],
+"preguntas":[
+{"q":"El acta que se levanta en la visita final de inspección es:","op":["INT-30 Acta de Terminación","INT-31 Acta de Recibo Definitivo","INT-32 Acta de Liquidación","INT-17 Acta de Iniciación"],"ok":0,"exp":"El INT-30 Acta de Terminación, donde quedan las observaciones sobre calidad y acabados y los compromisos del contratista con su fecha de cumplimiento."},
+{"q":"¿Quién aprueba los planos récord?","op":["El Ingeniero Residente","El Coordinador","El Director del Proyecto","El contratista"],"ok":2,"exp":"El Director del Proyecto los aprueba, y quedan controlados en el INT-2 Control de Planos."},
+{"q":"El documento donde consta el valor inicial y final del contrato y el paz y salvo entre las partes es:","op":["INT-30","INT-31","INT-32 Acta de Liquidación","INT-21"],"ok":2,"exp":"El INT-32 Acta de Liquidación, que incluye además las pólizas que amparan la estabilidad de las obras y los acuerdos a que lleguen las partes."},
+{"q":"La certificación del trabajo ejecutado que se solicita al Cliente se remite a:","op":["El archivo del proyecto","La Dirección Comercial de ING Ingeniería","El Jefe de Calidad","La aseguradora"],"ok":1,"exp":"Se remite a la Dirección Comercial junto con copia de las actas suscritas y la liquidación de los contratos, porque sustenta la experiencia de la empresa."}
+]
+},
+{
+"t":"Marco normativo del procedimiento",
+"bloques":[
+{"tipo":"p","c":"El INT-1 se apoya en las siguientes referencias normativas, que usted debe poder nombrar ante un auditor:"},
+{"tipo":"tabla","c":[["NTC-ISO 9001:2015","Sistemas de gestión de la calidad"],["NTC-ISO 45001:2018","Sistemas de gestión de seguridad y salud en el trabajo"],["Decreto 1072 de 2015","Artículos 2.2.4.6.8 y 2.2.4.6.15"],["Resolución 0312 de 2019","Artículo 16, estándares mínimos del SG-SST"]]},
+{"tipo":"p","c":"Y en el nivel técnico, según el tipo de obra, aplican el RAS, las especificaciones INVIAS y la NSR vigentes, como se vio en el módulo de supervisión técnica."},
+{"tipo":"clave","c":"El procedimiento relaciona al final un listado de más de treinta formatos INT. Usted no necesita memorizarlos todos, pero sí debe saber cuáles corresponden a su cargo y dónde consultarlos: en el <b>GD-5 Listado Maestro de Documentos y Registros<\/b>."}
+],
+"preguntas":[
+{"q":"¿Cuáles son las dos normas ISO que referencia el procedimiento INT-1?","op":["ISO 9001:2015 e ISO 14001:2015","ISO 9001:2015 e ISO 45001:2018","ISO 45001:2018 e ISO 31000","ISO 9001:2015 e ISO 19011"],"ok":1,"exp":"NTC-ISO 9001:2015 para calidad y NTC-ISO 45001:2018 para seguridad y salud en el trabajo, coherente con el alcance del Manual del SIG."},
+{"q":"¿Dónde consulta usted cuál es la versión vigente de un formato INT?","op":["En la carpeta compartida del proyecto","En el GD-5 Listado Maestro de Documentos y Registros","En el INT-3","Le pregunta al Coordinador"],"ok":1,"exp":"El GD-5 es la fuente oficial de versiones vigentes, tal como lo establece el Manual del SIG. Trabajar con un formato desactualizado es causa frecuente de no conformidad."},
+{"q":"La Resolución 0312 de 2019 referenciada en el procedimiento trata sobre:","op":["Contratación estatal","Estándares mínimos del SG-SST","Especificaciones de construcción vial","Manejo ambiental"],"ok":1,"exp":"La Resolución 0312 de 2019, artículo 16, define los estándares mínimos del Sistema de Gestión de Seguridad y Salud en el Trabajo."}
+]
+}
+]
+}
+</script>
+<script>
+const C = JSON.parse(document.getElementById('datos').textContent);
+const LS = 'curso-' + C.id + '-v1';
+const CARGOS = ["Gerente","Director de Interventoría del Contrato","Director de Interventoría","Coordinador Técnico de Interventoría",
+"Residente de Interventoría","Inspector de Obra","Profesional SST","Profesional Social","Profesional de Costos y Presupuestos",
+"Asesor de Calidad","Jefe Administrativo","Jefe de Calidad","Jefe SST","Asistente de Proyecto","Secretaria","Otro"];
+
+const $ = s => document.querySelector(s);
+const esc = t => String(t ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LETRAS = ['A','B','C','D'];
+
+let E = { reg:null, modulo:0, practica:{}, intentos:0, inicio:null, examen:null, resultado:null, declarado:false };
+try { const g = localStorage.getItem(LS); if (g) E = Object.assign(E, JSON.parse(g)); } catch(e){}
+const guardar = () => { try { localStorage.setItem(LS, JSON.stringify(E)); } catch(e){} };
+
+/* ---------- utilidades ---------- */
+function b64(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = ''; bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+function suma(s){ let n=0; for(let i=0;i<s.length;i++) n=(n*31+s.charCodeAt(i))%1296; return n.toString(36).toUpperCase().padStart(2,'0'); }
+function hoyISO(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function fechaLarga(){ return new Date().toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'}); }
+
+function generarCodigo(){
+  const r = E.reg, x = E.resultado;
+  const campos = [C.id, r.cedula, r.nombre, r.cargo, r.proyecto, hoyISO(),
+    String(x.puntaje), String(E.intentos), String(x.minutos), x.erradas.join('.')];
+  const cuerpo = b64(campos.join('|'));
+  return C.id + '-' + cuerpo + '-' + suma(cuerpo);
+}
+
+/* ---------- navegación ---------- */
+function totalPasos(){ return C.modulos.length + 2; }
+function pasoActual(){
+  if (!E.reg) return 0;
+  if (E.resultado && E.resultado.aprobado) return totalPasos();
+  if (E.examen) return C.modulos.length + 1;
+  return E.modulo + 1;
+}
+function cabecera(){
+  $('#cCod').textContent = C.codigo + ' v' + C.version;
+  const p = pasoActual(), t = totalPasos();
+  $('#cBarra').style.width = Math.round(p / t * 100) + '%';
+  $('#cPaso').textContent = !E.reg ? 'Registro'
+    : (E.resultado && E.resultado.aprobado) ? 'Finalizado'
+    : E.examen ? 'Evaluación'
+    : 'Módulo ' + (E.modulo + 1) + ' de ' + C.modulos.length;
+}
+function pintar(){
+  cabecera();
+  if (!E.reg) return vRegistro();
+  if (E.resultado) return vResultado();
+  if (E.examen) return vExamen();
+  vModulo();
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+/* ---------- registro ---------- */
+function vRegistro(){
+  $('#vista').innerHTML = `
+  <div class="tarj port">
+    <h1>${esc(C.titulo)}</h1>
+    <div class="sub">${esc(C.subtitulo)}</div>
+    <div class="meta">
+      <span class="pill">${esc(C.codigo)} versión ${esc(C.version)}</span>
+      <span class="pill">${C.modulos.length} módulos</span>
+      <span class="pill">${C.minutos} minutos aprox.</span>
+      <span class="pill">Aprobación ${C.aprobacion}%</span>
+    </div>
+    <p class="intro">Este curso recoge el contenido del documento <b>${esc(C.codigo)}</b> en su versión vigente. Está dirigido a ${esc(C.dirigido.toLowerCase())}.</p>
+    <p class="intro">Al terminar cada módulo encontrará preguntas de práctica con su explicación. Al final hay una evaluación de ${C.nPreguntas} preguntas y se requiere ${C.aprobacion}% para aprobar. Puede repetirla las veces que necesite.</p>
+    <div class="aviso"><b>Antes de empezar:</b> sus datos quedan en este dispositivo y solo salen cuando usted envíe el comprobante al final. Si cierra la página, el avance se conserva y puede continuar donde quedó.</div>
+
+    <h3 style="font-family:var(--tit);font-size:16px;letter-spacing:.07em;text-transform:uppercase;color:var(--azul);margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--bd)">Sus datos</h3>
+    <div class="campos">
+      <div class="campo"><label class="f" for="fNombre">Nombre completo</label><input type="text" id="fNombre" autocomplete="name" value="${esc(E.reg?.nombre||'')}"></div>
+      <div class="campo"><label class="f" for="fCedula">Cédula</label><input type="text" id="fCedula" inputmode="numeric" autocomplete="off" value="${esc(E.reg?.cedula||'')}"></div>
+      <div class="campo"><label class="f" for="fCargo">Cargo</label><select id="fCargo">
+        <option value="">Seleccione su cargo</option>
+        ${CARGOS.map(c => `<option value="${esc(c)}"${E.reg?.cargo===c?' selected':''}>${esc(c)}</option>`).join('')}
+      </select></div>
+      <div class="campo"><label class="f" for="fProyecto">Proyecto u oficina</label><input type="text" id="fProyecto" placeholder="Ej: PAS 50262 u Oficina Bogotá" value="${esc(E.reg?.proyecto||'')}"></div>
+    </div>
+    <div class="err" id="fErr" hidden></div>
+    <div class="pie"><button type="button" class="btn ancho" id="bEmpezar">Comenzar el curso</button></div>
+  </div>`;
+
+  $('#bEmpezar').onclick = () => {
+    const nombre = $('#fNombre').value.trim();
+    const cedula = $('#fCedula').value.replace(/\D/g,'');
+    const cargo = $('#fCargo').value;
+    const proyecto = $('#fProyecto').value.trim();
+    const e = $('#fErr');
+    if (nombre.length < 5) return falla(e, 'Escriba su nombre completo, como aparece en su cédula.');
+    if (cedula.length < 6) return falla(e, 'La cédula debe tener al menos 6 dígitos, sin puntos ni espacios.');
+    if (!cargo) return falla(e, 'Seleccione el cargo que desempeña.');
+    if (proyecto.length < 2) return falla(e, 'Indique el proyecto u oficina donde trabaja.');
+    e.hidden = true;
+    E.reg = { nombre: nombre.replace(/\|/g,' '), cedula, cargo, proyecto: proyecto.replace(/\|/g,' ') };
+    E.inicio = E.inicio || Date.now();
+    guardar(); pintar();
+  };
+}
+function falla(el, msg){ el.textContent = msg; el.hidden = false; el.scrollIntoView({block:'center'}); }
+
+/* ---------- contenido de módulo ---------- */
+function bloque(b){
+  switch(b.tipo){
+    case 'p': return `<p>${b.c}</p>`;
+    case 'h': return `<h3>${esc(b.c)}</h3>`;
+    case 'clave': return `<div class="clave">${b.c}</div>`;
+    case 'alerta': return `<div class="alert">${b.c}</div>`;
+    case 'lista': return `<ul>${b.items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+    case 'num': return `<ol>${b.items.map(i=>`<li>${i}</li>`).join('')}</ol>`;
+    case 'cita': return `<div class="cita"><div class="t">${esc(b.tit)}</div><div class="c">${esc(b.c)}</div></div>`;
+    case 'tabla': return `<div class="tabx"><table class="t"><tbody>${b.c.map(r=>`<tr><td>${esc(r[0])}</td><td>${r[1]}</td></tr>`).join('')}</tbody></table></div>`;
+    case 'dos': return `<div class="par">${b.c.map(r=>`<div><div class="k">${esc(r[0])}</div><div class="v">${r[1]}</div></div>`).join('')}</div>`;
+    case 'seis': return `<div class="seis">${b.c.map(r=>`<div><div class="k">${esc(r[0])}</div><div class="v">${esc(r[1])}</div></div>`).join('')}</div>`;
+    case 'mapa': return `<div class="mapa">${b.c.map(r=>`<div><div class="k">${esc(r[0])}</div><div class="d">${esc(r[1])}</div><div class="v">${esc(r[2])}</div></div>`).join('')}</div>`;
+    case 'cargo': return `<div class="cargo"><div class="h">${esc(b.nom)}</div><ul>${b.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;
+    case 'informes': return `<div class="infx">${b.c.map(r=>`<div><div class="r"><span class="k">${esc(r[0])}</span>${r[1]!=='—'?`<span class="f">${esc(r[1])}</span>`:''}</div><div class="v">${r[2]}</div></div>`).join('')}</div>`;
+    case 'secuencia': return `<div class="sec">${b.c.map(r=>`<div><div class="n">${esc(r[0])}</div><div><div class="k">${esc(r[1])}</div><div class="v">${r[2]}</div></div></div>`).join('')}</div>`;
+    default: return '';
+  }
+}
+function vModulo(){
+  const i = E.modulo, m = C.modulos[i];
+  const prac = E.practica[i] || {};
+  $('#vista').innerHTML = `
+  <div class="tarj mod">
+    <div class="ficha"><span class="n">Módulo ${i+1} de ${C.modulos.length}</span></div>
+    <h2>${esc(m.t)}</h2>
+    <div class="cuerpo">${m.bloques.map(bloque).join('')}</div>
+    <div class="preg">
+      <div class="et">Compruebe lo que leyó</div>
+      ${m.preguntas.map((p,j)=>pintaPregunta(p,j,prac[j])).join('')}
+    </div>
+    <div class="pie">
+      ${i>0?`<button type="button" class="btn gris" id="bAtras">Anterior</button>`:''}
+      <button type="button" class="btn sp" id="bSigue">${i===C.modulos.length-1?'Ir a la evaluación':'Siguiente módulo'}</button>
+    </div>
+  </div>`;
+
+  document.querySelectorAll('[data-op]').forEach(b => b.onclick = () => {
+    const [j,k] = b.dataset.op.split('-').map(Number);
+    if ((E.practica[i]||{})[j] !== undefined) return;
+    E.practica[i] = E.practica[i] || {}; E.practica[i][j] = k;
+    guardar(); vModulo();
+  });
+  if ($('#bAtras')) $('#bAtras').onclick = () => { E.modulo--; guardar(); pintar(); };
+  $('#bSigue').onclick = () => {
+    if (i === C.modulos.length - 1) { iniciarExamen(); }
+    else { E.modulo++; guardar(); pintar(); }
+  };
+}
+function pintaPregunta(p, j, elegida){
+  const resuelta = elegida !== undefined;
+  const ok = elegida === p.ok;
+  return `<div class="q">
+    <div class="t">${esc(p.q)}</div>
+    <div class="ops">${p.op.map((o,k)=>{
+      let cls = '';
+      if (resuelta) { if (k===p.ok) cls=' bien'; else if (k===elegida) cls=' mal'; }
+      return `<button type="button" class="op${cls}" data-op="${j}-${k}"${resuelta?' disabled':''}>
+        <span class="l">${LETRAS[k]}</span><span>${esc(o)}</span></button>`;
+    }).join('')}</div>
+    ${resuelta?`<div class="fb ${ok?'bien':'mal'}"><div class="v">${ok?'Correcto':'Revise este punto'}</div>${esc(p.exp)}</div>`:''}
+  </div>`;
+}
+
+/* ---------- evaluación ---------- */
+function bancoPlano(){
+  const b = [];
+  C.modulos.forEach((m,i) => m.preguntas.forEach((p,j) => b.push({ id:'m'+(i+1)+'p'+(j+1), mod:i, ...p })));
+  return b;
+}
+function iniciarExamen(){
+  const banco = bancoPlano();
+  for (let i = banco.length - 1; i > 0; i--) { const r = Math.floor(Math.random()*(i+1)); [banco[i],banco[r]] = [banco[r],banco[i]]; }
+  E.examen = { preguntas: banco.slice(0, Math.min(C.nPreguntas, banco.length)), actual: 0, respuestas: [], t0: Date.now() };
+  guardar(); pintar();
+}
+function vExamen(){
+  const x = E.examen, p = x.preguntas[x.actual];
+  $('#vista').innerHTML = `
+  <div class="tarj">
+    <div class="evcab">
+      <span class="c">Evaluación · pregunta ${x.actual+1} de ${x.preguntas.length}</span>
+      <span class="puntos">${x.preguntas.map((_,i)=>`<i class="${i<x.actual?'on':''}"></i>`).join('')}</span>
+    </div>
+    <div class="q">
+      <div class="t">${esc(p.q)}</div>
+      <div class="ops">${p.op.map((o,k)=>`<button type="button" class="op" data-ev="${k}">
+        <span class="l">${LETRAS[k]}</span><span>${esc(o)}</span></button>`).join('')}</div>
+    </div>
+    <p class="nota">Esta vez no se muestra la respuesta. Al terminar verá el resultado y en qué temas debe reforzar.</p>
+  </div>`;
+  document.querySelectorAll('[data-ev]').forEach(b => b.onclick = () => {
+    x.respuestas.push({ id:p.id, mod:p.mod, ok: Number(b.dataset.ev) === p.ok });
+    if (x.actual < x.preguntas.length - 1) { x.actual++; guardar(); vExamen(); window.scrollTo({top:0,behavior:'instant'}); }
+    else cerrarExamen();
+  });
+}
+function cerrarExamen(){
+  const x = E.examen;
+  const buenas = x.respuestas.filter(r => r.ok).length;
+  const puntaje = Math.round(buenas / x.respuestas.length * 100);
+  E.intentos++;
+  E.resultado = {
+    puntaje, buenas, total: x.respuestas.length,
+    aprobado: puntaje >= C.aprobacion,
+    erradas: x.respuestas.filter(r => !r.ok).map(r => r.id),
+    modulosFallo: [...new Set(x.respuestas.filter(r => !r.ok).map(r => r.mod))],
+    minutos: Math.max(1, Math.round((Date.now() - (E.inicio || x.t0)) / 60000))
+  };
+  E.examen = null;
+  guardar(); pintar(); window.scrollTo({top:0,behavior:'instant'});
+}
+
+/* ---------- resultado ---------- */
+function vResultado(){
+  const r = E.resultado, ap = r.aprobado;
+  const col = ap ? 'var(--ok)' : 'var(--mal)';
+  const circ = 2 * Math.PI * 56;
+  const temas = r.modulosFallo.map(i => C.modulos[i].t);
+  $('#vista').innerHTML = `
+  <div class="tarj">
+    <div class="res">
+      <div class="anillo">
+        <svg width="132" height="132" viewBox="0 0 132 132">
+          <circle cx="66" cy="66" r="56" fill="none" stroke="var(--bd)" stroke-width="11"></circle>
+          <circle cx="66" cy="66" r="56" fill="none" stroke="${col}" stroke-width="11" stroke-linecap="round"
+            stroke-dasharray="${circ}" stroke-dashoffset="${circ * (1 - r.puntaje/100)}"></circle>
+        </svg>
+        <div class="c"><div class="p num" style="color:${col}">${r.puntaje}%</div><div class="s">Puntaje</div></div>
+      </div>
+      <h2>${ap ? 'Curso aprobado' : 'No alcanzó el puntaje'}</h2>
+      <p class="d">${ap ? 'Respondió correctamente ' + r.buenas + ' de ' + r.total + ' preguntas.'
+        : 'Respondió ' + r.buenas + ' de ' + r.total + '. Se requiere ' + C.aprobacion + '% para aprobar.'}</p>
+    </div>
+
+    <div class="datos">
+      <div><div class="k">Correctas</div><div class="v num">${r.buenas}/${r.total}</div></div>
+      <div><div class="k">Intento</div><div class="v num">${E.intentos}</div></div>
+      <div><div class="k">Tiempo</div><div class="v num">${r.minutos} min</div></div>
+    </div>
+
+    ${temas.length ? `<div class="aviso" style="margin-top:20px"><b>Temas para reforzar:</b> ${temas.map(esc).join(' · ')}</div>` : ''}
+
+    ${ap ? bloqueAprobado() : `
+      <p class="nota">Vuelva a los módulos donde tuvo errores y repita la evaluación. Las preguntas cambian en cada intento. Todos los intentos quedan registrados.</p>
+      <div class="pie">
+        <button type="button" class="btn gris" id="bRepasar">Volver a los módulos</button>
+        <button type="button" class="btn sp" id="bReintentar">Repetir la evaluación</button>
+      </div>`}
+  </div>`;
+
+  if (!ap) {
+    $('#bRepasar').onclick = () => { E.resultado=null; E.modulo = r.modulosFallo.length ? r.modulosFallo[0] : 0; guardar(); pintar(); };
+    $('#bReintentar').onclick = () => { E.resultado=null; iniciarExamen(); };
+    return;
+  }
+  const dec = $('#cDecl');
+  dec.onchange = () => { E.declarado = dec.checked; guardar(); $('#zonaComp').hidden = !dec.checked; };
+  $('#bCopiar').onclick = copiar;
+  $('#bReiniciar').onclick = () => {
+    E = { reg:E.reg, modulo:0, practica:{}, intentos:E.intentos, inicio:null, examen:null, resultado:null, declarado:false };
+    guardar(); pintar();
+  };
+}
+function bloqueAprobado(){
+  const r = E.reg, x = E.resultado;
+  return `
+  <div class="decl">
+    <div class="t">Declaración de conocimiento — equivalente al GH-4</div>
+    <p>Declaro que recibí, leí y entendí el contenido del documento <b>${esc(C.codigo)} ${esc(C.titulo)}</b>, versión ${esc(C.version)}, y que conozco las responsabilidades que me corresponden según mi cargo. Entiendo que incumplir los requisitos del Sistema Integrado de Gestión genera no conformidades que afectan a la organización y al proyecto.</p>
+    <label class="chk"><input type="checkbox" id="cDecl"${E.declarado?' checked':''}>
+      <span>Confirmo la declaración anterior, en calidad de <b>${esc(r.cargo)}</b>.</span></label>
+  </div>
+
+  <div id="zonaComp"${E.declarado?'':' hidden'}>
+    <div class="comp">
+      <div class="h">Comprobante de formación</div>
+      <div class="b">
+        <div class="lista">
+          <div><b>Nombre:</b> ${esc(r.nombre)}</div>
+          <div><b>Cédula:</b> <span class="num">${esc(r.cedula)}</span></div>
+          <div><b>Cargo:</b> ${esc(r.cargo)}</div>
+          <div><b>Proyecto:</b> ${esc(r.proyecto)}</div>
+          <div><b>Curso:</b> ${esc(C.codigo)} v${esc(C.version)} — ${esc(C.titulo)}</div>
+          <div><b>Fecha:</b> ${fechaLarga()}</div>
+          <div><b>Resultado:</b> <span class="num">${x.puntaje}%</span> · intento <span class="num">${E.intentos}</span> · <span class="num">${x.minutos}</span> min</div>
+        </div>
+        <div class="codigo" id="elCodigo">${esc(generarCodigo())}</div>
+        <div class="pie">
+          <button type="button" class="btn ancho" id="bCopiar">Copiar comprobante</button>
+        </div>
+        <p class="nota">Envíe este código a la Jefatura de Calidad por WhatsApp o correo. Con él se registra su formación en el tablero de seguimiento. No necesita enviar nada más.</p>
+      </div>
+    </div>
+    <div class="pie"><button type="button" class="btn gris" id="bReiniciar">Repasar el curso de nuevo</button></div>
+  </div>`;
+}
+
+/* ---------- copiar ---------- */
+async function copiar(){
+  const r = E.reg, x = E.resultado;
+  const texto = `COMPROBANTE DE FORMACIÓN — ING Ingeniería\n`
+    + `${C.codigo} v${C.version} · ${C.titulo}\n`
+    + `${r.nombre} · CC ${r.cedula}\n${r.cargo} · ${r.proyecto}\n`
+    + `${fechaLarga()} · ${x.puntaje}% · intento ${E.intentos}\n\n`
+    + generarCodigo();
+  try {
+    await navigator.clipboard.writeText(texto);
+    aviso('Comprobante copiado. Péguelo en WhatsApp o en el correo.');
+  } catch(e) {
+    const el = $('#elCodigo');
+    const sel = window.getSelection(); const rg = document.createRange();
+    rg.selectNodeContents(el); sel.removeAllRanges(); sel.addRange(rg);
+    aviso('Seleccionamos el código. Mantenga pulsado y elija Copiar.');
+  }
+}
+let tToast;
+function aviso(t){
+  clearTimeout(tToast);
+  let n = document.querySelector('.toast');
+  if (!n) { n = document.createElement('div'); n.className = 'toast'; document.body.appendChild(n); }
+  n.textContent = t;
+  tToast = setTimeout(() => n.remove(), 4200);
+}
+
+pintar();
+</script>
+
+</body>
+</html>

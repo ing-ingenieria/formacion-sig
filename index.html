@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Formación del Sistema Integrado de Gestión — ING Ingeniería.">
+<meta name="theme-color" content="#EEF2F5">
+<title>Formación del Sistema Integrado de Gestión</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --papel:#EEF2F5; --carta:#FFFFFF; --tinta:#13202C; --gris:#5C7183; --bd:#D6DFE6;
+  --azul:#155E93; --azul-sup:#E2EDF5; --azul-bd:#B9D3E6;
+  --ambar:#9A6500; --ambar-sup:#FBF1DD; --ambar-bd:#E8CC97;
+  --ui:'Inter',system-ui,-apple-system,sans-serif;
+  --tit:'Source Serif 4',Georgia,serif;
+  --som:0 1px 2px rgba(19,32,44,.05),0 4px 14px rgba(19,32,44,.06);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--ui);font-size:16px;line-height:1.55}
+.env{max-width:720px;margin:0 auto;padding:40px 20px 56px}
+header{margin-bottom:34px}
+.marca{font-size:12.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gris)}
+h1{font-family:var(--tit);font-size:clamp(27px,6vw,36px);line-height:1.18;font-weight:700;margin:12px 0 10px}
+.sub{color:var(--gris);margin:0;font-size:15.5px}
+.tarjetas{display:grid;gap:16px}
+a.curso{
+  display:block;text-decoration:none;color:inherit;background:var(--carta);
+  border:1px solid var(--bd);border-left-width:5px;border-radius:12px;padding:20px 22px;
+  box-shadow:var(--som);transition:transform .14s ease,box-shadow .14s ease;
+}
+a.curso:hover,a.curso:focus-visible{transform:translateY(-2px);box-shadow:0 2px 4px rgba(19,32,44,.06),0 10px 26px rgba(19,32,44,.10)}
+a.curso:focus-visible{outline:3px solid var(--azul);outline-offset:3px}
+a.sig{border-left-color:var(--azul)}
+a.int{border-left-color:var(--ambar)}
+.cod{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.07em;border-radius:4px;padding:3px 8px;margin-bottom:10px}
+.sig .cod{background:var(--azul-sup);color:var(--azul);border:1px solid var(--azul-bd)}
+.int .cod{background:var(--ambar-sup);color:var(--ambar);border:1px solid var(--ambar-bd)}
+h2{font-family:var(--tit);font-size:20px;font-weight:700;margin:0 0 7px}
+.d{color:var(--gris);font-size:14.5px;margin:0 0 14px}
+.meta{display:flex;flex-wrap:wrap;gap:7px 16px;font-size:13px;color:var(--gris);border-top:1px solid var(--bd);padding-top:12px}
+.meta b{color:var(--tinta);font-weight:600}
+.ir{font-weight:600;font-size:14.5px;margin-left:auto}
+.sig .ir{color:var(--azul)} .int .ir{color:var(--ambar)}
+.aviso{margin-top:30px;background:var(--carta);border:1px solid var(--bd);border-radius:12px;padding:18px 22px}
+.aviso h3{font-size:15px;font-weight:700;margin:0 0 9px}
+.aviso ol{margin:0;padding-left:20px;color:var(--gris);font-size:14.5px}
+.aviso li{margin-bottom:7px}
+.aviso li:last-child{margin-bottom:0}
+footer{margin-top:28px;font-size:13px;color:var(--gris);text-align:center}
+@media (max-width:560px){ .env{padding:28px 16px 44px} a.curso{padding:17px 18px} }
+</style>
+</head>
+<body>
+<div class="env">
+
+  <header>
+    <div class="marca">ING Ingeniería</div>
+    <h1>Formación del Sistema Integrado de Gestión</h1>
+    <p class="sub">Dos cursos cortos, con evaluación. Puede hacerlos desde el celular, en el orden que prefiera, y continuar después si se interrumpe.</p>
+  </header>
+
+  <div class="tarjetas">
+
+    <a class="curso sig" href="manual-sig/">
+      <span class="cod">GD-8 v18</span>
+      <h2>Manual del Sistema Integrado de Gestión</h2>
+      <p class="d">Qué es el sistema, cómo está organizada la empresa, el mapa de procesos, la política y los objetivos, y cómo se maneja la información documentada.</p>
+      <div class="meta"><span>8 módulos</span><span>Aprox. <b>25 min</b></span><span class="ir">Empezar →</span></div>
+    </a>
+
+    <a class="curso int" href="interventoria/">
+      <span class="cod">INT-1 v14</span>
+      <h2>Procedimiento de Interventoría de Proyectos de Obras Civiles</h2>
+      <p class="d">Responsabilidades por cargo, planificación, bitácora, supervisión técnica, administrativa y ambiental, informes, entrega y liquidación.</p>
+      <div class="meta"><span>10 módulos</span><span>Aprox. <b>35 min</b></span><span class="ir">Empezar →</span></div>
+    </a>
+
+  </div>
+
+  <div class="aviso">
+    <h3>Cómo queda registrada su participación</h3>
+    <ol>
+      <li>Al iniciar, escriba su nombre, cédula, cargo y proyecto.</li>
+      <li>Recorra los módulos y presente la evaluación final.</li>
+      <li>Al aprobar, el curso le entrega un <b>código de comprobante</b>. Cópielo con el botón y envíelo a la responsable de calidad.</li>
+    </ol>
+  </div>
+
+  <footer>Si se le cierra el navegador, el avance queda guardado en el mismo equipo.</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Curso interactivo del Manual del Sistema Integrado de Gestión GD-8 v18.">
+<meta name="theme-color" content="#F7F9FB">
+<style>
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0}
+  [hidden]{display:none!important}
+  img{max-width:100%}
+</style>
+<title>Manual del SIG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Una columna, lectura secuencial. Cabecera fija con avance; tarjeta de contenido sobre fondo neutro. */
+:root{
+  --papel:#EEF2F5; --carta:#FFFFFF; --tinta:#13202C; --gris:#5C7183;
+  --azul:#155E93; --azul-sup:#E2EDF5; --azul-bd:#B9D3E6;
+  --ambar:#9A6500; --ambar-sup:#FBF1DD; --ambar-bd:#E8CC97;
+  --ok:#17684A; --ok-sup:#E2F1EA; --mal:#A33225; --mal-sup:#FAE8E5;
+  --bd:#D3DDE5; --bd2:#BAC8D3;
+  --som:0 1px 2px rgba(19,32,44,.07), 0 8px 22px -16px rgba(19,32,44,.35);
+  --ui:'Barlow',system-ui,-apple-system,Segoe UI,sans-serif;
+  --tit:'Barlow Condensed','Barlow',system-ui,sans-serif;
+  --txt:'Source Serif 4',Georgia,'Times New Roman',serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --papel:#0E1821; --carta:#16232E; --tinta:#E6EEF4; --gris:#94A8B8;
+  --azul:#6CAEDC; --azul-sup:#13293A; --azul-bd:#27475E;
+  --ambar:#E0AC55; --ambar-sup:#2C2314; --ambar-bd:#4E3E1E;
+  --ok:#5FC498; --ok-sup:#102A20; --mal:#EE8F80; --mal-sup:#2E1A16;
+  --bd:#283744; --bd2:#36485806;
+  --bd2:#36485A;
+  --som:0 1px 2px rgba(0,0,0,.4), 0 8px 22px -16px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --papel:#0E1821; --carta:#16232E; --tinta:#E6EEF4; --gris:#94A8B8;
+  --azul:#6CAEDC; --azul-sup:#13293A; --azul-bd:#27475E;
+  --ambar:#E0AC55; --ambar-sup:#2C2314; --ambar-bd:#4E3E1E;
+  --ok:#5FC498; --ok-sup:#102A20; --mal:#EE8F80; --mal-sup:#2E1A16;
+  --bd:#283744; --bd2:#36485A;
+  --som:0 1px 2px rgba(0,0,0,.4), 0 8px 22px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--papel);color:var(--tinta);font-family:var(--ui);font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+:is(button,input,select,a,textarea):focus-visible{outline:3px solid var(--ambar);outline-offset:2px;border-radius:4px}
+h1,h2,h3{margin:0;font-family:var(--tit);text-wrap:balance;letter-spacing:.005em}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+
+/* cabecera */
+.tope{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--carta);border-bottom:1px solid var(--bd)}
+.tope .fila{max-width:760px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.marca{font-family:var(--tit);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--azul);white-space:nowrap}
+.cod{font-family:var(--ui);font-weight:600;font-size:11.5px;letter-spacing:.08em;background:var(--azul-sup);color:var(--azul);
+  border:1px solid var(--azul-bd);border-radius:3px;padding:2px 7px;white-space:nowrap}
+.tope .der{margin-left:auto;font-size:12.5px;color:var(--gris);font-weight:500;white-space:nowrap}
+.barra{height:4px;background:var(--bd)}
+.barra i{display:block;height:100%;background:var(--azul);width:0;transition:width .35s ease}
+
+.marco{max-width:760px;margin:0 auto;padding-inline:18px;padding-block:22px 72px}
+.tarj{background:var(--carta);border:1px solid var(--bd);border-radius:10px;box-shadow:var(--som);padding:22px 20px}
+@media (max-width:480px){.tarj{padding:18px 15px}}
+
+/* portada */
+.port h1{font-size:clamp(27px,7vw,40px);line-height:1.05;font-weight:700}
+.port .sub{font-family:var(--tit);font-size:clamp(16px,4vw,19px);color:var(--azul);font-weight:600;margin-top:4px;letter-spacing:.01em}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{font-size:12.5px;font-weight:500;background:var(--papel);border:1px solid var(--bd);border-radius:20px;padding:4px 12px;color:var(--gris)}
+.intro{font-family:var(--txt);font-size:16.5px;line-height:1.62;margin-top:18px;color:var(--tinta)}
+.intro + .intro{margin-top:12px}
+.aviso{background:var(--ambar-sup);border:1px solid var(--ambar-bd);border-left:4px solid var(--ambar);
+  border-radius:0 7px 7px 0;padding:13px 15px;margin-top:18px;font-size:14.5px;line-height:1.55}
+.aviso b{color:var(--ambar)}
+
+/* formulario */
+.campos{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px;margin-top:6px}
+label.f{display:block;font-size:12.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--gris);margin-bottom:5px}
+.campo input,.campo select{width:100%;background:var(--carta);border:1.5px solid var(--bd2);border-radius:6px;padding:10px 11px;font-size:16px}
+.campo input:hover,.campo select:hover{border-color:var(--azul)}
+.err{color:var(--mal);font-size:13px;margin-top:10px;font-weight:500}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--azul);background:var(--azul);
+  color:var(--carta);border-radius:7px;padding:12px 22px;font-size:15.5px;font-weight:600;cursor:pointer;font-family:var(--ui)}
+.btn:hover{filter:brightness(1.1)}
+.btn.sec{background:transparent;color:var(--azul)}
+.btn.sec:hover{background:var(--azul-sup);filter:none}
+.btn.gris{background:transparent;border-color:var(--bd2);color:var(--gris)}
+.btn.gris:hover{background:var(--papel);color:var(--tinta)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;filter:none}
+.btn.ancho{width:100%}
+.pie{display:flex;gap:10px;align-items:center;margin-top:22px;flex-wrap:wrap}
+.pie .sp{margin-left:auto}
+
+/* módulo */
+.ficha{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.ficha .n{font-family:var(--tit);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ambar)}
+.mod h2{font-size:clamp(21px,5.2vw,28px);line-height:1.15;font-weight:700;margin-bottom:16px}
+.cuerpo{font-family:var(--txt);font-size:16.5px;line-height:1.66}
+.cuerpo p{margin-bottom:13px}
+.cuerpo b{font-weight:600}
+.cuerpo h3{font-family:var(--tit);font-size:17px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--azul);margin:22px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--bd)}
+.cuerpo ul{margin:0 0 14px;padding-left:20px}
+.cuerpo li{margin-bottom:8px}
+.cuerpo ol{margin:0 0 14px;padding-left:22px}
+.clave{background:var(--azul-sup);border:1px solid var(--azul-bd);border-radius:7px;padding:13px 15px;margin-bottom:14px;
+  font-family:var(--ui);font-size:15px;line-height:1.52}
+.alert{background:var(--ambar-sup);border:1px solid var(--ambar-bd);border-left:4px solid var(--ambar);border-radius:0 7px 7px 0;
+  padding:13px 15px;margin-bottom:14px;font-family:var(--ui);font-size:15px;line-height:1.52}
+.cita{border-left:3px solid var(--azul);padding:4px 0 4px 15px;margin-bottom:14px}
+.cita .t{font-family:var(--tit);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--azul);margin-bottom:5px}
+.cita .c{font-style:italic;font-size:15.5px;line-height:1.6}
+.tabx{overflow-x:auto;margin-bottom:14px}
+table.t{border-collapse:collapse;width:100%;font-family:var(--ui);font-size:14.5px}
+table.t td{border-bottom:1px solid var(--bd);padding:9px 10px;vertical-align:top}
+table.t tr td:first-child{font-weight:600;color:var(--azul);white-space:nowrap;width:1%}
+.par{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:11px;margin-bottom:14px}
+.par > div{border:1px solid var(--bd);border-radius:7px;padding:12px 13px;font-family:var(--ui)}
+.par .k{font-family:var(--tit);font-weight:700;font-size:14.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--azul);margin-bottom:4px}
+.par .v{font-size:14px;line-height:1.5}
+.mapa{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+.mapa > div{border:1px solid var(--bd);border-left:4px solid var(--azul);border-radius:0 7px 7px 0;padding:11px 14px;font-family:var(--ui)}
+.mapa .k{font-family:var(--tit);font-weight:700;font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:var(--azul)}
+.mapa .d{font-size:12.5px;color:var(--gris);font-weight:500;margin-bottom:5px}
+.mapa .v{font-size:14.5px;line-height:1.5}
+.seis{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:9px;margin-bottom:14px}
+.seis > div{background:var(--papel);border:1px solid var(--bd);border-radius:7px;padding:10px 12px;font-family:var(--ui)}
+.seis .k{font-family:var(--tit);font-weight:700;font-size:14px;letter-spacing:.1em;color:var(--ambar)}
+.seis .v{font-size:13.5px;line-height:1.45;color:var(--gris)}
+.cargo{border:1px solid var(--bd);border-radius:8px;margin-bottom:12px;overflow:hidden}
+.cargo .h{background:var(--azul-sup);border-bottom:1px solid var(--azul-bd);padding:9px 14px;
+  font-family:var(--tit);font-weight:700;font-size:16px;letter-spacing:.04em;color:var(--azul)}
+.cargo ul{margin:0;padding:12px 14px 12px 32px;font-family:var(--ui);font-size:14.5px}
+.cargo li{margin-bottom:7px}
+.cargo li:last-child{margin-bottom:0}
+.infx{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.infx > div{border:1px solid var(--bd);border-radius:8px;padding:12px 14px;font-family:var(--ui)}
+.infx .r{display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;margin-bottom:5px}
+.infx .k{font-family:var(--tit);font-weight:700;font-size:16px;letter-spacing:.03em}
+.infx .f{font-size:11.5px;font-weight:600;letter-spacing:.06em;background:var(--ambar-sup);color:var(--ambar);
+  border:1px solid var(--ambar-bd);border-radius:3px;padding:2px 7px}
+.infx .v{font-size:14.5px;line-height:1.5;color:var(--gris)}
+.sec{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;counter-reset:s}
+.sec > div{display:flex;gap:13px;align-items:flex-start;font-family:var(--ui)}
+.sec .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--azul);color:var(--carta);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.sec .k{font-family:var(--tit);font-weight:700;font-size:16px;letter-spacing:.03em;margin-bottom:3px}
+.sec .v{font-size:14.5px;line-height:1.52}
+
+/* preguntas */
+.preg{border-top:2px solid var(--bd);margin-top:26px;padding-top:20px}
+.preg .et{font-family:var(--tit);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ambar);margin-bottom:12px}
+.q{margin-bottom:22px}
+.q:last-child{margin-bottom:0}
+.q .t{font-weight:600;font-size:16.5px;line-height:1.45;margin-bottom:12px}
+.ops{display:flex;flex-direction:column;gap:8px}
+.op{display:flex;gap:11px;align-items:flex-start;border:1.5px solid var(--bd);border-radius:7px;padding:11px 13px;
+  cursor:pointer;background:var(--carta);text-align:left;font-size:15.5px;line-height:1.42;width:100%;font-family:var(--ui)}
+.op:hover:not(:disabled){border-color:var(--azul);background:var(--azul-sup)}
+.op .l{flex:none;width:23px;height:23px;border-radius:50%;border:1.5px solid var(--bd2);display:flex;align-items:center;
+  justify-content:center;font-size:12.5px;font-weight:700;color:var(--gris)}
+.op.sel{border-color:var(--azul);background:var(--azul-sup)}
+.op.sel .l{background:var(--azul);border-color:var(--azul);color:var(--carta)}
+.op.bien{border-color:var(--ok);background:var(--ok-sup)}
+.op.bien .l{background:var(--ok);border-color:var(--ok);color:var(--carta)}
+.op.mal{border-color:var(--mal);background:var(--mal-sup)}
+.op.mal .l{background:var(--mal);border-color:var(--mal);color:var(--carta)}
+.op:disabled{cursor:default}
+.fb{margin-top:11px;border-radius:7px;padding:11px 13px;font-size:14.5px;line-height:1.52}
+.fb.bien{background:var(--ok-sup);border:1px solid var(--ok)}
+.fb.mal{background:var(--mal-sup);border:1px solid var(--mal)}
+.fb .v{font-weight:700;margin-bottom:3px;font-family:var(--tit);font-size:15px;letter-spacing:.04em;text-transform:uppercase}
+.fb.bien .v{color:var(--ok)} .fb.mal .v{color:var(--mal)}
+
+/* evaluación */
+.evcab{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.evcab .c{font-family:var(--tit);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.puntos{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.puntos i{width:9px;height:9px;border-radius:50%;background:var(--bd);display:block}
+.puntos i.on{background:var(--azul)}
+
+/* resultado */
+.res{text-align:center;padding:10px 0 4px}
+.res .anillo{width:132px;height:132px;margin:0 auto 16px;position:relative}
+.res .anillo svg{transform:rotate(-90deg)}
+.res .anillo .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.res .anillo .p{font-family:var(--tit);font-size:38px;font-weight:700;line-height:1}
+.res .anillo .s{font-size:12px;color:var(--gris);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.res h2{font-size:25px;font-weight:700}
+.res .d{color:var(--gris);margin-top:6px;font-size:15px}
+.datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:1px;background:var(--bd);
+  border:1px solid var(--bd);border-radius:8px;overflow:hidden;margin-top:20px}
+.datos > div{background:var(--carta);padding:12px 10px;text-align:center}
+.datos .k{font-size:11.5px;color:var(--gris);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.datos .v{font-family:var(--tit);font-size:23px;font-weight:700;margin-top:2px}
+
+/* declaración y comprobante */
+.decl{background:var(--papel);border:1px solid var(--bd);border-radius:8px;padding:16px;margin-top:20px}
+.decl .t{font-family:var(--tit);font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--azul);margin-bottom:9px}
+.decl p{font-size:14.5px;line-height:1.58}
+.chk{display:flex;gap:11px;align-items:flex-start;margin-top:14px;cursor:pointer;font-size:15px;line-height:1.45;font-weight:500}
+.chk input{width:21px;height:21px;accent-color:var(--azul);flex:none;margin:0;cursor:pointer}
+.comp{border:2px solid var(--azul);border-radius:9px;overflow:hidden;margin-top:20px}
+.comp .h{background:var(--azul);color:var(--carta);padding:11px 15px;font-family:var(--tit);font-weight:700;
+  font-size:16px;letter-spacing:.06em;text-transform:uppercase}
+.comp .b{padding:15px}
+.comp .lista{font-size:14.5px;line-height:1.75}
+.comp .lista b{font-weight:600;color:var(--gris);font-weight:500}
+.codigo{background:var(--papel);border:1px dashed var(--bd2);border-radius:7px;padding:12px;margin-top:13px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.5;
+  word-break:break-all;user-select:all;-webkit-user-select:all}
+.nota{font-size:13.5px;color:var(--gris);line-height:1.55;margin-top:12px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--tinta);color:var(--papel);
+  padding:11px 18px;border-radius:8px;font-size:14.5px;font-weight:500;z-index:50;box-shadow:0 8px 26px -8px rgba(0,0,0,.55)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<header class="tope">
+  <div class="fila">
+    <span class="marca">ING Ingeniería</span>
+    <span class="cod" id="cCod"></span>
+    <span class="der" id="cPaso"></span>
+  </div>
+  <div class="barra"><i id="cBarra"></i></div>
+</header>
+
+<div class="marco" id="vista"></div>
+
+<script id="datos" type="application/json">{
+"id":"SIG",
+"codigo":"GD-8",
+"version":"18",
+"fechaDoc":"05-07-2024",
+"titulo":"Manual del Sistema Integrado de Gestión",
+"subtitulo":"ING Ingeniería S.A.S.",
+"dirigido":"Todo el personal de la organización",
+"minutos":25,
+"aprobacion":80,
+"nPreguntas":16,
+"modulos":[
+{
+"t":"Qué es el Sistema Integrado de Gestión",
+"bloques":[
+{"tipo":"p","c":"El Sistema Integrado de Gestión, que abreviamos SIG, es la forma en que ING Ingeniería organiza dos cosas al tiempo: la <b>calidad<\/b> de lo que entregamos y la <b>seguridad y salud<\/b> de quienes lo hacemos."},
+{"tipo":"p","c":"No son dos sistemas separados. Están integrados en un solo marco, soportado en dos normas internacionales:"},
+{"tipo":"dos","c":[["ISO 9001","Gestión de la calidad. Asegura que el servicio cumpla lo que el cliente pidió y lo que exige la ley."],["ISO 45001","Gestión de seguridad y salud en el trabajo. Busca un entorno seguro y reducir riesgos laborales."]]},
+{"tipo":"clave","c":"El objetivo del manual GD-8 es establecer el marco de referencia unificado para la gestión de la calidad y la seguridad y salud en el trabajo en ING Ingeniería S.A.S."},
+{"tipo":"p","c":"El manual aplica a <b>todos los procesos de la organización y a todos los proyectos<\/b> a cargo de la empresa. No hay áreas excluidas."},
+{"tipo":"p","c":"El alcance declarado del sistema es: <i>«Servicios de interventoría de obras civiles y consultoría en proyectos de arquitectura e ingeniería»<\/i>, aplicando todos los requisitos de ISO 9001 e ISO 45001 <b>sin excluir ninguno<\/b>."}
+],
+"preguntas":[
+{"q":"¿Cuáles son las dos normas internacionales que integra el SIG de ING Ingeniería?","op":["ISO 9001 e ISO 45001","ISO 9001 e ISO 14001","ISO 14001 e ISO 45001","ISO 9001 e ISO 27001"],"ok":0,"exp":"ISO 9001 para calidad e ISO 45001 para seguridad y salud en el trabajo. La ISO 14001, que es ambiental, no hace parte del alcance actual del sistema."},
+{"q":"¿A qué aplica el Manual del SIG?","op":["Solo a los procesos de oficina","Solo a los proyectos certificados","A todos los procesos de la organización y a los proyectos a cargo","Solo al área de calidad"],"ok":2,"exp":"El alcance del manual cubre todos los procesos de la organización y todos los proyectos a cargo de ING Ingeniería. Ninguna área queda por fuera."},
+{"q":"¿La empresa excluyó algún requisito de la norma ISO 9001?","op":["Sí, los de diseño y desarrollo","Sí, los de seguimiento y medición","No, se aplican todos los requisitos sin exclusión","Sí, los relacionados con proveedores"],"ok":2,"exp":"El manual declara expresamente que se aplican todos los requisitos de ISO 9001 e ISO 45001 sin realizar exclusiones."},
+{"q":"El alcance del sistema de gestión cubre:","op":["Únicamente el trabajo en las oficinas de la empresa","El trabajo en instalaciones permanentes y en sitios fuera de ellas","Únicamente el trabajo en obra","Solo los contratos con entidades públicas"],"ok":1,"exp":"El manual precisa que las actividades y el sistema de gestión cubren tanto el trabajo en las instalaciones permanentes de la empresa como el realizado en sitios fuera de ellas, es decir las obras."}
+]
+},
+{
+"t":"Quiénes somos: misión, visión y valores",
+"bloques":[
+{"tipo":"p","c":"Conocer la identidad de la empresa no es un adorno. La misión y la visión son el marco contra el que se definen la política y los objetivos del sistema."},
+{"tipo":"cita","tit":"Misión","c":"Ejercemos la ingeniería de consulta ajustada a criterios éticos, con altos estándares de calidad, seguridad y salud en el trabajo, soportado por un recurso humano calificado, en beneficio de los intereses de nuestros clientes y la sociedad en general, logrando que la ejecución de nuestros proyectos permita obtener una rentabilidad que retribuya en el bienestar de sus socios y empleados."},
+{"tipo":"cita","tit":"Visión","c":"Ser una empresa líder en ingeniería de consulta a nivel nacional y con proyección internacional, reconocida por sus altos estándares de servicio, el profesionalismo de su recurso humano, con alianzas en campos complementarios, aplicando tecnologías y sistemas de información en línea."},
+{"tipo":"h","c":"Los siete valores corporativos"},
+{"tipo":"lista","items":["<b>Desarrollo Humano:<\/b> participar de forma óptima y efectiva en la construcción de la organización.","<b>Tolerancia:<\/b> control de sí mismo, respetando la dignidad y la diferencia entre las personas.","<b>Honestidad:<\/b> obrar con rectitud, reconociendo y asumiendo los propios errores.","<b>Compromiso:<\/b> ir más allá del simple deber, siendo fiel en el trato y en el desempeño.","<b>Trabajo en Equipo:<\/b> poner al servicio de la organización el talento propio para lograr las metas.","<b>Responsabilidad:<\/b> reconocer y aceptar las consecuencias de nuestros actos.","<b>Respeto:<\/b> escuchar a los demás y usar un lenguaje adecuado, cortés y amable."]},
+{"tipo":"h","c":"Identificación de la organización"},
+{"tipo":"tabla","c":[["Razón social","ING INGENIERÍA S.A.S"],["NIT","890.405.995-1"],["Constitución","03 de julio de 2015"],["Representante legal","Carlos Alberto Bello Avena"],["Sede","Bogotá, Calle 114 A # 53-94"],["Actividad (CIIU)","7110 — Actividades de arquitectura e ingeniería"]]}
+],
+"preguntas":[
+{"q":"¿Cuántos valores corporativos tiene definidos ING Ingeniería?","op":["Cinco","Seis","Siete","Ocho"],"ok":2,"exp":"Son siete: Desarrollo Humano, Tolerancia, Honestidad, Compromiso, Trabajo en Equipo, Responsabilidad y Respeto."},
+{"q":"«Obramos con rectitud, reconociendo y asumiendo los propios errores» corresponde al valor de:","op":["Responsabilidad","Honestidad","Compromiso","Respeto"],"ok":1,"exp":"Es la definición de Honestidad. Note la diferencia con Responsabilidad, que es reconocer y aceptar las consecuencias de nuestros actos."},
+{"q":"Según la misión, la ingeniería de consulta se ejerce ajustada a:","op":["Criterios económicos","Criterios éticos","Criterios comerciales","Criterios de productividad"],"ok":1,"exp":"La misión dice textualmente «ingeniería de consulta ajustada a criterios éticos, con altos estándares de calidad, seguridad y salud en el trabajo»."}
+]
+},
+{
+"t":"El mapa de procesos",
+"bloques":[
+{"tipo":"p","c":"La empresa organiza su trabajo en tres niveles de procesos. Entender dónde está ubicado su cargo le dice a qué proceso pertenece lo que usted hace todos los días."},
+{"tipo":"mapa","c":[
+["Estratégicos","Deciden el rumbo","Planeación estratégica · Licitaciones · Mejora continua"],
+["Misionales","Son el negocio","Interventoría de obras civiles · Consultoría en estudios y diseños"],
+["De apoyo","Hacen posible lo demás","Gestión humana · Gestión de compras · Gestión de seguridad y salud en el trabajo"]]},
+{"tipo":"p","c":"El mapa se lee de izquierda a derecha: entra la <b>necesidad del cliente<\/b> y sale la <b>satisfacción del cliente<\/b>. Los procesos misionales son la flecha central, porque son los que entregan el servicio."},
+{"tipo":"clave","c":"Cada proceso tiene su documento de «Caracterización de procesos», donde se describe su interrelación con los demás."}
+],
+"preguntas":[
+{"q":"La Interventoría de obras civiles es un proceso de tipo:","op":["Estratégico","Misional","De apoyo","De control"],"ok":1,"exp":"Es un proceso misional, junto con la Consultoría en estudios y diseños. Son los que entregan directamente el servicio al cliente."},
+{"q":"¿Cuál de estos es un proceso de apoyo?","op":["Licitaciones","Planeación estratégica","Gestión de compras","Interventoría de obras civiles"],"ok":2,"exp":"Los procesos de apoyo son Gestión humana, Gestión de compras y Gestión de seguridad y salud en el trabajo. Licitaciones y Planeación estratégica son estratégicos."},
+{"q":"La Mejora continua está clasificada como proceso:","op":["Misional","De apoyo","Estratégico","Operativo"],"ok":2,"exp":"Mejora continua es un proceso estratégico, al lado de Planeación estratégica y Licitaciones."}
+]
+},
+{
+"t":"Política y objetivos del sistema",
+"bloques":[
+{"tipo":"p","c":"La alta dirección establece las políticas del sistema. Están disponibles para todo el personal a través de los canales definidos en el SST-10 Plan de Comunicación."},
+{"tipo":"h","c":"Las políticas vigentes"},
+{"tipo":"tabla","c":[["O-PE-02","Política del Sistema Integrado de Gestión"],["O-PE-04","Promoción y prevención para actores de la vía"],["O-PE-08","Prevención y atención al consumo de sustancias psicoactivas"],["O-PE-09","Prevención del acoso laboral"],["O-PE-14","Prevención y atención del acoso sexual en el ámbito laboral"],["O-PE-15","Desconexión laboral"],["O-PE-18","Teletrabajo"],["O-PE-19","Trabajo en casa"],["O-PE-20","Contra el trabajo infantil y el trabajo forzado"]]},
+{"tipo":"h","c":"Los cuatro objetivos de calidad"},
+{"tipo":"lista","items":["Mantener la percepción del cliente en niveles satisfactorios.","Cumplir con los requisitos técnicos, financieros, de entrega oportuna y de calidad definidos para la prestación del servicio.","Mantener y mejorar la competencia del personal para la implementación eficaz del sistema, la prestación del servicio y el control de los procesos.","Mejorar el desempeño del sistema de gestión de calidad."]},
+{"tipo":"h","c":"Los tres objetivos de seguridad y salud en el trabajo"},
+{"tipo":"lista","items":["Evidenciar el compromiso de los niveles directivos con la SST a través del desarrollo de comités de seguimiento.","Implementar el programa de capacitación orientado a promover el autocuidado y el control de riesgos calificados como prioritarios.","Fomentar el reporte de incidentes, condiciones y actos inseguros como mecanismo esencial para la prevención de accidentes de trabajo."]},
+{"tipo":"clave","c":"Cada objetivo lleva al menos una meta y un indicador medibles. Los resultados se consignan en el MC-7 para calidad y en el SST-35 para seguridad y salud."}
+],
+"preguntas":[
+{"q":"¿En qué formato se consignan los resultados de los indicadores de gestión de calidad?","op":["GD-5","MC-7","SST-35","INT-3"],"ok":1,"exp":"El MC-7 es el formato de medición de indicadores de gestión. Para los indicadores de seguridad y salud en el trabajo se usa el SST-35."},
+{"q":"¿Cuántos objetivos de calidad tiene definidos la organización?","op":["Tres","Cuatro","Cinco","Siete"],"ok":1,"exp":"Son cuatro objetivos de calidad y tres de seguridad y salud en el trabajo."},
+{"q":"La política O-PE-15 corresponde a:","op":["Teletrabajo","Desconexión laboral","Trabajo en casa","Acoso laboral"],"ok":1,"exp":"O-PE-15 es la Política de Desconexión Laboral. El teletrabajo es O-PE-18 y el trabajo en casa O-PE-19."},
+{"q":"Cada objetivo del sistema debe llevar obligatoriamente:","op":["Un responsable y un presupuesto","Al menos una meta y un indicador medibles","Una fecha de vencimiento","La firma del gerente"],"ok":1,"exp":"El manual establece que cada objetivo lleva al menos una meta y un indicador medibles, para garantizar la mejora del sistema."}
+]
+},
+{
+"t":"Toma de conciencia: lo que se espera de usted",
+"bloques":[
+{"tipo":"alerta","c":"Este es el punto que la auditoría encontró débil. El numeral 5.4 del manual exige que todas las personas que trabajan bajo el control de la organización tomen conciencia de cinco cosas."},
+{"tipo":"num","items":["<b>La política<\/b> del sistema integrado de gestión.","<b>Los objetivos<\/b> pertinentes a su cargo.","<b>Su contribución<\/b> a la eficacia del sistema, incluidos los beneficios de mejorar el desempeño.","<b>Lo que implica incumplir<\/b> los requisitos del sistema de gestión.","Otros aspectos pertinentes a su labor."]},
+{"tipo":"p","c":"El cuarto punto es el que más se pasa por alto. Incumplir un requisito del sistema no es una falta formal: genera una <b>no conformidad<\/b>, puede afectar la certificación de la empresa, y en un contrato de interventoría puede derivar en hallazgos del cliente, sanciones o pérdida de la confianza contractual."},
+{"tipo":"h","c":"Competencia y perfiles de cargo"},
+{"tipo":"p","c":"Los requisitos de educación, formación, experiencia y habilidades están establecidos en los <b>perfiles de cargo<\/b>. Las tareas, responsabilidades y autoridades se comunican al personal, quien firma el formato <b>GH-4<\/b> ratificando que ha leído y entendido el documento presentado."},
+{"tipo":"clave","c":"Al terminar este curso usted firmará la declaración equivalente al GH-4. Ese es el registro que evidencia su toma de conciencia ante una auditoría."},
+{"tipo":"p","c":"Cuando se detecta que falta competencia, se toman acciones para adquirirla y después <b>se evalúa la eficacia<\/b> de esas acciones. El procedimiento que rige esto es el <b>GH-02<\/b>, y el plan anual es el <b>GH-10 Programa de capacitación<\/b>."}
+],
+"preguntas":[
+{"q":"Según el numeral 5.4 del manual, además de la política y los objetivos, el personal debe tomar conciencia de:","op":["El organigrama de la empresa","Lo que implica incumplir los requisitos del sistema","El presupuesto anual del proyecto","Los nombres de los auditores"],"ok":1,"exp":"La toma de conciencia incluye expresamente «lo que implica incumplir los requisitos del sistema de gestión». Es el punto que con más frecuencia se pasa por alto."},
+{"q":"¿En qué formato ratifica el trabajador que leyó y entendió sus responsabilidades y autoridades?","op":["GH-10","GH-4","GD-5","MC-7"],"ok":1,"exp":"El GH-4 es el formato donde el personal firma que ha leído y entendido el documento presentado. El GH-10 es el programa de capacitación."},
+{"q":"Cuando se toman acciones para adquirir una competencia faltante, el sistema exige además:","op":["Archivar el certificado","Evaluar la eficacia de las acciones tomadas","Notificar al cliente","Actualizar el organigrama"],"ok":1,"exp":"No basta con capacitar. El manual exige evaluar la eficacia de las acciones tomadas, que es la única forma de demostrar que la brecha de competencia se cerró."},
+{"q":"Una no conformidad es:","op":["Un reclamo de un cliente","El incumplimiento de un requisito","Un accidente de trabajo","Un retraso en la obra"],"ok":1,"exp":"El manual la define como el incumplimiento de un requisito. Puede ser un requisito del cliente, legal, de la norma o del propio sistema de gestión."}
+]
+},
+{
+"t":"Información documentada: trabajar con la versión vigente",
+"bloques":[
+{"tipo":"p","c":"Una de las causas más frecuentes de no conformidad es trabajar con un formato desactualizado. El sistema tiene una regla clara para evitarlo."},
+{"tipo":"clave","c":"La versión vigente de cualquier documento se verifica en el <b>GD-5 Listado Maestro de Documentos y Registros<\/b>. Para requisitos legales de seguridad y salud, en la <b>matriz legal SST-25<\/b>."},
+{"tipo":"p","c":"Cuando en cualquier documento del sistema aparece la palabra «vigente», se está refiriendo a la versión que indique el GD-5 o el SST-25. Y los documentos que se mencionan sin ninguna indicación también se entienden referidos a ese listado."},
+{"tipo":"h","c":"Las reglas de control documental"},
+{"tipo":"lista","items":["Los documentos se revisan y aprueban antes de emitirse, por personal autorizado.","Los cambios y modificaciones quedan identificados y consignados en el <b>GD-6<\/b>.","Las versiones pertinentes están disponibles en los lugares de uso.","Los documentos <b>obsoletos<\/b> se archivan y conservan aparte, en el lugar destinado para ello, para evitar que alguien los consulte por error.","La norma fundamental que rige todo esto es el <b>GD-1<\/b>."]},
+{"tipo":"p","c":"La información documentada se conserva con almacenamiento, protección, archivo, copia de seguridad, recuperación y tiempo de conservación definidos. Los registros se diligencian en texto legible, manuscritos en tinta indeleble o impresos."}
+],
+"preguntas":[
+{"q":"Usted va a diligenciar un formato y quiere asegurarse de usar la versión correcta. ¿Dónde lo verifica?","op":["En la carpeta del proyecto","En el GD-5 Listado Maestro de Documentos y Registros","Le pregunta a un compañero","En el correo donde se lo enviaron"],"ok":1,"exp":"El GD-5 es la única fuente oficial para saber cuál es la versión vigente. Un formato que circula por correo puede estar desactualizado."},
+{"q":"¿Qué se hace con los documentos obsoletos?","op":["Se destruyen de inmediato","Se dejan en la misma carpeta marcados en rojo","Se archivan y conservan en un lugar destinado para ello","Se envían al cliente"],"ok":2,"exp":"Se archivan aparte, en el lugar destinado para dicho fin, para evitar que se consulten por error. No se destruyen, porque pueden requerirse como histórico."},
+{"q":"Los cambios y modificaciones a los documentos se consignan en:","op":["GD-1","GD-5","GD-6","GD-14"],"ok":2,"exp":"El GD-6 registra los cambios y modificaciones. El GD-5 es el listado maestro y el GD-1 es la norma fundamental."},
+{"q":"Un registro diligenciado a mano debe hacerse:","op":["En lápiz, para poder corregir","En tinta indeleble y en texto legible","En cualquier medio, lo importante es el contenido","Solo en computador"],"ok":1,"exp":"El manual exige que los registros se diligencien en texto legible, manuscritos en tinta indeleble o impresos, para garantizar su conservación e integridad."}
+]
+},
+{
+"t":"Comunicación del sistema",
+"bloques":[
+{"tipo":"p","c":"Las comunicaciones internas y externas se manejan según el <b>SST-10 Plan de Comunicación<\/b>, y siempre responden a seis preguntas:"},
+{"tipo":"seis","c":[["QUÉ","Información a comunicar"],["CÓMO","Descripción de cómo comunicar"],["CUÁNDO","Periodicidad"],["DÓNDE","Medios o formatos"],["QUIÉN","Responsable emisor"],["A QUIÉN","Receptor"]]},
+{"tipo":"h","c":"Los siete canales oficiales"},
+{"tipo":"lista","items":["Correo electrónico","Acta de reunión","Página web","Memorando, carta u oficio","Carteleras o publicaciones","Servidor","Aplicativos móviles o de PC"]},
+{"tipo":"p","c":"Para la recepción de documentos rige el <b>GD-4<\/b> y para el manejo de comunicaciones el <b>GD-14<\/b>."}
+],
+"preguntas":[
+{"q":"¿Cuál de estos NO es un canal de comunicación oficial del sistema?","op":["Acta de reunión","Carteleras o publicaciones","Mensaje verbal en obra","Aplicativos móviles o de PC"],"ok":2,"exp":"Los siete canales oficiales son correo electrónico, acta de reunión, página web, memorando o carta u oficio, carteleras, servidor y aplicativos. Un mensaje verbal no deja registro y no sirve como evidencia."},
+{"q":"El plan que rige las comunicaciones del sistema es:","op":["GD-14","SST-10","GD-4","MC-3"],"ok":1,"exp":"El SST-10 Plan de Comunicación. El GD-4 rige la recepción de documentos y el GD-14 el manejo de comunicaciones."}
+]
+},
+{
+"t":"Medición, auditoría y mejora",
+"bloques":[
+{"tipo":"p","c":"El sistema no se sostiene solo con documentos: se mide, se audita y se corrige. Estas son las frecuencias que usted debe conocer."},
+{"tipo":"tabla","c":[["Auditoría interna","Al menos una vez al año — procedimiento AIC-1"],["Revisión por la dirección","Al menos una vez al año — procedimiento RG-3"],["Matriz de riesgos IPER (SST-24)","Anual"],["Comités de desempeño","Trimestral"],["Análisis de no conformidades","Semestral"],["Registro de incidentes","Continuo"]]},
+{"tipo":"h","c":"Cuando algo sale mal"},
+{"tipo":"p","c":"Ante una no conformidad la organización reacciona en cuatro pasos: la <b>controla<\/b>, la <b>corrige<\/b>, hace frente a las <b>consecuencias<\/b> y <b>registra<\/b> toda su gestión. Después analiza las causas para que no vuelva a ocurrir ni se repita en otras partes."},
+{"tipo":"clave","c":"El procedimiento de no conformidad y acción correctiva es el <b>MC-1<\/b>. El de mejora es el <b>MC-3<\/b>. Las acciones correctivas se registran en el formato <b>MC-2<\/b>."},
+{"tipo":"p","c":"La retroalimentación del cliente, positiva o negativa, se obtiene por la encuesta de satisfacción <b>MC-6<\/b> y por las PQRS, y alimenta la mejora del sistema."},
+{"tipo":"alerta","c":"Si usted detecta una no conformidad, reportarla no es un problema: es exactamente lo que el sistema espera de usted. Lo que genera el hallazgo grave es ocultarla o dejarla sin registrar."}
+],
+"preguntas":[
+{"q":"¿Con qué frecuencia mínima se realiza la auditoría interna?","op":["Mensual","Trimestral","Semestral","Al menos una vez al año"],"ok":3,"exp":"Al menos una vez por año, conforme al programa de auditorías AIC-2 y el procedimiento AIC-1."},
+{"q":"¿Cuál es el procedimiento de no conformidad y acción correctiva?","op":["MC-1","MC-3","MC-6","AIC-1"],"ok":0,"exp":"El MC-1. El MC-3 es el de mejora y el MC-6 es la encuesta de satisfacción del cliente."},
+{"q":"Ante una no conformidad, la organización debe:","op":["Esperar a la próxima auditoría","Controlarla, corregirla, enfrentar sus consecuencias y registrar la gestión","Reportarla únicamente al cliente","Cambiar el procedimiento afectado"],"ok":1,"exp":"Son los cuatro pasos que define el manual, y después se analizan las causas para evitar que se repita."},
+{"q":"Los comités de desempeño en SST se realizan con frecuencia:","op":["Mensual","Trimestral","Semestral","Anual"],"ok":1,"exp":"Trimestral, según la tabla de métodos y herramientas de medición del manual."},
+{"q":"La revisión por la dirección se realiza:","op":["Cuando lo pide el cliente","Al menos una vez al año","Cada dos años","Solo si hay no conformidades"],"ok":1,"exp":"Al menos una vez al año y conforme al plan de trabajo anual, según el procedimiento RG-3."}
+]
+}
+]
+}
+</script>
+<script>
+const C = JSON.parse(document.getElementById('datos').textContent);
+const LS = 'curso-' + C.id + '-v1';
+const CARGOS = ["Gerente","Director de Interventoría del Contrato","Director de Interventoría","Coordinador Técnico de Interventoría",
+"Residente de Interventoría","Inspector de Obra","Profesional SST","Profesional Social","Profesional de Costos y Presupuestos",
+"Asesor de Calidad","Jefe Administrativo","Jefe de Calidad","Jefe SST","Asistente de Proyecto","Secretaria","Otro"];
+
+const $ = s => document.querySelector(s);
+const esc = t => String(t ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LETRAS = ['A','B','C','D'];
+
+let E = { reg:null, modulo:0, practica:{}, intentos:0, inicio:null, examen:null, resultado:null, declarado:false };
+try { const g = localStorage.getItem(LS); if (g) E = Object.assign(E, JSON.parse(g)); } catch(e){}
+const guardar = () => { try { localStorage.setItem(LS, JSON.stringify(E)); } catch(e){} };
+
+/* ---------- utilidades ---------- */
+function b64(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = ''; bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+function suma(s){ let n=0; for(let i=0;i<s.length;i++) n=(n*31+s.charCodeAt(i))%1296; return n.toString(36).toUpperCase().padStart(2,'0'); }
+function hoyISO(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function fechaLarga(){ return new Date().toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'}); }
+
+function generarCodigo(){
+  const r = E.reg, x = E.resultado;
+  const campos = [C.id, r.cedula, r.nombre, r.cargo, r.proyecto, hoyISO(),
+    String(x.puntaje), String(E.intentos), String(x.minutos), x.erradas.join('.')];
+  const cuerpo = b64(campos.join('|'));
+  return C.id + '-' + cuerpo + '-' + suma(cuerpo);
+}
+
+/* ---------- navegación ---------- */
+function totalPasos(){ return C.modulos.length + 2; }
+function pasoActual(){
+  if (!E.reg) return 0;
+  if (E.resultado && E.resultado.aprobado) return totalPasos();
+  if (E.examen) return C.modulos.length + 1;
+  return E.modulo + 1;
+}
+function cabecera(){
+  $('#cCod').textContent = C.codigo + ' v' + C.version;
+  const p = pasoActual(), t = totalPasos();
+  $('#cBarra').style.width = Math.round(p / t * 100) + '%';
+  $('#cPaso').textContent = !E.reg ? 'Registro'
+    : (E.resultado && E.resultado.aprobado) ? 'Finalizado'
+    : E.examen ? 'Evaluación'
+    : 'Módulo ' + (E.modulo + 1) + ' de ' + C.modulos.length;
+}
+function pintar(){
+  cabecera();
+  if (!E.reg) return vRegistro();
+  if (E.resultado) return vResultado();
+  if (E.examen) return vExamen();
+  vModulo();
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+/* ---------- registro ---------- */
+function vRegistro(){
+  $('#vista').innerHTML = `
+  <div class="tarj port">
+    <h1>${esc(C.titulo)}</h1>
+    <div class="sub">${esc(C.subtitulo)}</div>
+    <div class="meta">
+      <span class="pill">${esc(C.codigo)} versión ${esc(C.version)}</span>
+      <span class="pill">${C.modulos.length} módulos</span>
+      <span class="pill">${C.minutos} minutos aprox.</span>
+      <span class="pill">Aprobación ${C.aprobacion}%</span>
+    </div>
+    <p class="intro">Este curso recoge el contenido del documento <b>${esc(C.codigo)}</b> en su versión vigente. Está dirigido a ${esc(C.dirigido.toLowerCase())}.</p>
+    <p class="intro">Al terminar cada módulo encontrará preguntas de práctica con su explicación. Al final hay una evaluación de ${C.nPreguntas} preguntas y se requiere ${C.aprobacion}% para aprobar. Puede repetirla las veces que necesite.</p>
+    <div class="aviso"><b>Antes de empezar:</b> sus datos quedan en este dispositivo y solo salen cuando usted envíe el comprobante al final. Si cierra la página, el avance se conserva y puede continuar donde quedó.</div>
+
+    <h3 style="font-family:var(--tit);font-size:16px;letter-spacing:.07em;text-transform:uppercase;color:var(--azul);margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--bd)">Sus datos</h3>
+    <div class="campos">
+      <div class="campo"><label class="f" for="fNombre">Nombre completo</label><input type="text" id="fNombre" autocomplete="name" value="${esc(E.reg?.nombre||'')}"></div>
+      <div class="campo"><label class="f" for="fCedula">Cédula</label><input type="text" id="fCedula" inputmode="numeric" autocomplete="off" value="${esc(E.reg?.cedula||'')}"></div>
+      <div class="campo"><label class="f" for="fCargo">Cargo</label><select id="fCargo">
+        <option value="">Seleccione su cargo</option>
+        ${CARGOS.map(c => `<option value="${esc(c)}"${E.reg?.cargo===c?' selected':''}>${esc(c)}</option>`).join('')}
+      </select></div>
+      <div class="campo"><label class="f" for="fProyecto">Proyecto u oficina</label><input type="text" id="fProyecto" placeholder="Ej: PAS 50262 u Oficina Bogotá" value="${esc(E.reg?.proyecto||'')}"></div>
+    </div>
+    <div class="err" id="fErr" hidden></div>
+    <div class="pie"><button type="button" class="btn ancho" id="bEmpezar">Comenzar el curso</button></div>
+  </div>`;
+
+  $('#bEmpezar').onclick = () => {
+    const nombre = $('#fNombre').value.trim();
+    const cedula = $('#fCedula').value.replace(/\D/g,'');
+    const cargo = $('#fCargo').value;
+    const proyecto = $('#fProyecto').value.trim();
+    const e = $('#fErr');
+    if (nombre.length < 5) return falla(e, 'Escriba su nombre completo, como aparece en su cédula.');
+    if (cedula.length < 6) return falla(e, 'La cédula debe tener al menos 6 dígitos, sin puntos ni espacios.');
+    if (!cargo) return falla(e, 'Seleccione el cargo que desempeña.');
+    if (proyecto.length < 2) return falla(e, 'Indique el proyecto u oficina donde trabaja.');
+    e.hidden = true;
+    E.reg = { nombre: nombre.replace(/\|/g,' '), cedula, cargo, proyecto: proyecto.replace(/\|/g,' ') };
+    E.inicio = E.inicio || Date.now();
+    guardar(); pintar();
+  };
+}
+function falla(el, msg){ el.textContent = msg; el.hidden = false; el.scrollIntoView({block:'center'}); }
+
+/* ---------- contenido de módulo ---------- */
+function bloque(b){
+  switch(b.tipo){
+    case 'p': return `<p>${b.c}</p>`;
+    case 'h': return `<h3>${esc(b.c)}</h3>`;
+    case 'clave': return `<div class="clave">${b.c}</div>`;
+    case 'alerta': return `<div class="alert">${b.c}</div>`;
+    case 'lista': return `<ul>${b.items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+    case 'num': return `<ol>${b.items.map(i=>`<li>${i}</li>`).join('')}</ol>`;
+    case 'cita': return `<div class="cita"><div class="t">${esc(b.tit)}</div><div class="c">${esc(b.c)}</div></div>`;
+    case 'tabla': return `<div class="tabx"><table class="t"><tbody>${b.c.map(r=>`<tr><td>${esc(r[0])}</td><td>${r[1]}</td></tr>`).join('')}</tbody></table></div>`;
+    case 'dos': return `<div class="par">${b.c.map(r=>`<div><div class="k">${esc(r[0])}</div><div class="v">${r[1]}</div></div>`).join('')}</div>`;
+    case 'seis': return `<div class="seis">${b.c.map(r=>`<div><div class="k">${esc(r[0])}</div><div class="v">${esc(r[1])}</div></div>`).join('')}</div>`;
+    case 'mapa': return `<div class="mapa">${b.c.map(r=>`<div><div class="k">${esc(r[0])}</div><div class="d">${esc(r[1])}</div><div class="v">${esc(r[2])}</div></div>`).join('')}</div>`;
+    case 'cargo': return `<div class="cargo"><div class="h">${esc(b.nom)}</div><ul>${b.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;
+    case 'informes': return `<div class="infx">${b.c.map(r=>`<div><div class="r"><span class="k">${esc(r[0])}</span>${r[1]!=='—'?`<span class="f">${esc(r[1])}</span>`:''}</div><div class="v">${r[2]}</div></div>`).join('')}</div>`;
+    case 'secuencia': return `<div class="sec">${b.c.map(r=>`<div><div class="n">${esc(r[0])}</div><div><div class="k">${esc(r[1])}</div><div class="v">${r[2]}</div></div></div>`).join('')}</div>`;
+    default: return '';
+  }
+}
+function vModulo(){
+  const i = E.modulo, m = C.modulos[i];
+  const prac = E.practica[i] || {};
+  $('#vista').innerHTML = `
+  <div class="tarj mod">
+    <div class="ficha"><span class="n">Módulo ${i+1} de ${C.modulos.length}</span></div>
+    <h2>${esc(m.t)}</h2>
+    <div class="cuerpo">${m.bloques.map(bloque).join('')}</div>
+    <div class="preg">
+      <div class="et">Compruebe lo que leyó</div>
+      ${m.preguntas.map((p,j)=>pintaPregunta(p,j,prac[j])).join('')}
+    </div>
+    <div class="pie">
+      ${i>0?`<button type="button" class="btn gris" id="bAtras">Anterior</button>`:''}
+      <button type="button" class="btn sp" id="bSigue">${i===C.modulos.length-1?'Ir a la evaluación':'Siguiente módulo'}</button>
+    </div>
+  </div>`;
+
+  document.querySelectorAll('[data-op]').forEach(b => b.onclick = () => {
+    const [j,k] = b.dataset.op.split('-').map(Number);
+    if ((E.practica[i]||{})[j] !== undefined) return;
+    E.practica[i] = E.practica[i] || {}; E.practica[i][j] = k;
+    guardar(); vModulo();
+  });
+  if ($('#bAtras')) $('#bAtras').onclick = () => { E.modulo--; guardar(); pintar(); };
+  $('#bSigue').onclick = () => {
+    if (i === C.modulos.length - 1) { iniciarExamen(); }
+    else { E.modulo++; guardar(); pintar(); }
+  };
+}
+function pintaPregunta(p, j, elegida){
+  const resuelta = elegida !== undefined;
+  const ok = elegida === p.ok;
+  return `<div class="q">
+    <div class="t">${esc(p.q)}</div>
+    <div class="ops">${p.op.map((o,k)=>{
+      let cls = '';
+      if (resuelta) { if (k===p.ok) cls=' bien'; else if (k===elegida) cls=' mal'; }
+      return `<button type="button" class="op${cls}" data-op="${j}-${k}"${resuelta?' disabled':''}>
+        <span class="l">${LETRAS[k]}</span><span>${esc(o)}</span></button>`;
+    }).join('')}</div>
+    ${resuelta?`<div class="fb ${ok?'bien':'mal'}"><div class="v">${ok?'Correcto':'Revise este punto'}</div>${esc(p.exp)}</div>`:''}
+  </div>`;
+}
+
+/* ---------- evaluación ---------- */
+function bancoPlano(){
+  const b = [];
+  C.modulos.forEach((m,i) => m.preguntas.forEach((p,j) => b.push({ id:'m'+(i+1)+'p'+(j+1), mod:i, ...p })));
+  return b;
+}
+function iniciarExamen(){
+  const banco = bancoPlano();
+  for (let i = banco.length - 1; i > 0; i--) { const r = Math.floor(Math.random()*(i+1)); [banco[i],banco[r]] = [banco[r],banco[i]]; }
+  E.examen = { preguntas: banco.slice(0, Math.min(C.nPreguntas, banco.length)), actual: 0, respuestas: [], t0: Date.now() };
+  guardar(); pintar();
+}
+function vExamen(){
+  const x = E.examen, p = x.preguntas[x.actual];
+  $('#vista').innerHTML = `
+  <div class="tarj">
+    <div class="evcab">
+      <span class="c">Evaluación · pregunta ${x.actual+1} de ${x.preguntas.length}</span>
+      <span class="puntos">${x.preguntas.map((_,i)=>`<i class="${i<x.actual?'on':''}"></i>`).join('')}</span>
+    </div>
+    <div class="q">
+      <div class="t">${esc(p.q)}</div>
+      <div class="ops">${p.op.map((o,k)=>`<button type="button" class="op" data-ev="${k}">
+        <span class="l">${LETRAS[k]}</span><span>${esc(o)}</span></button>`).join('')}</div>
+    </div>
+    <p class="nota">Esta vez no se muestra la respuesta. Al terminar verá el resultado y en qué temas debe reforzar.</p>
+  </div>`;
+  document.querySelectorAll('[data-ev]').forEach(b => b.onclick = () => {
+    x.respuestas.push({ id:p.id, mod:p.mod, ok: Number(b.dataset.ev) === p.ok });
+    if (x.actual < x.preguntas.length - 1) { x.actual++; guardar(); vExamen(); window.scrollTo({top:0,behavior:'instant'}); }
+    else cerrarExamen();
+  });
+}
+function cerrarExamen(){
+  const x = E.examen;
+  const buenas = x.respuestas.filter(r => r.ok).length;
+  const puntaje = Math.round(buenas / x.respuestas.length * 100);
+  E.intentos++;
+  E.resultado = {
+    puntaje, buenas, total: x.respuestas.length,
+    aprobado: puntaje >= C.aprobacion,
+    erradas: x.respuestas.filter(r => !r.ok).map(r => r.id),
+    modulosFallo: [...new Set(x.respuestas.filter(r => !r.ok).map(r => r.mod))],
+    minutos: Math.max(1, Math.round((Date.now() - (E.inicio || x.t0)) / 60000))
+  };
+  E.examen = null;
+  guardar(); pintar(); window.scrollTo({top:0,behavior:'instant'});
+}
+
+/* ---------- resultado ---------- */
+function vResultado(){
+  const r = E.resultado, ap = r.aprobado;
+  const col = ap ? 'var(--ok)' : 'var(--mal)';
+  const circ = 2 * Math.PI * 56;
+  const temas = r.modulosFallo.map(i => C.modulos[i].t);
+  $('#vista').innerHTML = `
+  <div class="tarj">
+    <div class="res">
+      <div class="anillo">
+        <svg width="132" height="132" viewBox="0 0 132 132">
+          <circle cx="66" cy="66" r="56" fill="none" stroke="var(--bd)" stroke-width="11"></circle>
+          <circle cx="66" cy="66" r="56" fill="none" stroke="${col}" stroke-width="11" stroke-linecap="round"
+            stroke-dasharray="${circ}" stroke-dashoffset="${circ * (1 - r.puntaje/100)}"></circle>
+        </svg>
+        <div class="c"><div class="p num" style="color:${col}">${r.puntaje}%</div><div class="s">Puntaje</div></div>
+      </div>
+      <h2>${ap ? 'Curso aprobado' : 'No alcanzó el puntaje'}</h2>
+      <p class="d">${ap ? 'Respondió correctamente ' + r.buenas + ' de ' + r.total + ' preguntas.'
+        : 'Respondió ' + r.buenas + ' de ' + r.total + '. Se requiere ' + C.aprobacion + '% para aprobar.'}</p>
+    </div>
+
+    <div class="datos">
+      <div><div class="k">Correctas</div><div class="v num">${r.buenas}/${r.total}</div></div>
+      <div><div class="k">Intento</div><div class="v num">${E.intentos}</div></div>
+      <div><div class="k">Tiempo</div><div class="v num">${r.minutos} min</div></div>
+    </div>
+
+    ${temas.length ? `<div class="aviso" style="margin-top:20px"><b>Temas para reforzar:</b> ${temas.map(esc).join(' · ')}</div>` : ''}
+
+    ${ap ? bloqueAprobado() : `
+      <p class="nota">Vuelva a los módulos donde tuvo errores y repita la evaluación. Las preguntas cambian en cada intento. Todos los intentos quedan registrados.</p>
+      <div class="pie">
+        <button type="button" class="btn gris" id="bRepasar">Volver a los módulos</button>
+        <button type="button" class="btn sp" id="bReintentar">Repetir la evaluación</button>
+      </div>`}
+  </div>`;
+
+  if (!ap) {
+    $('#bRepasar').onclick = () => { E.resultado=null; E.modulo = r.modulosFallo.length ? r.modulosFallo[0] : 0; guardar(); pintar(); };
+    $('#bReintentar').onclick = () => { E.resultado=null; iniciarExamen(); };
+    return;
+  }
+  const dec = $('#cDecl');
+  dec.onchange = () => { E.declarado = dec.checked; guardar(); $('#zonaComp').hidden = !dec.checked; };
+  $('#bCopiar').onclick = copiar;
+  $('#bReiniciar').onclick = () => {
+    E = { reg:E.reg, modulo:0, practica:{}, intentos:E.intentos, inicio:null, examen:null, resultado:null, declarado:false };
+    guardar(); pintar();
+  };
+}
+function bloqueAprobado(){
+  const r = E.reg, x = E.resultado;
+  return `
+  <div class="decl">
+    <div class="t">Declaración de conocimiento — equivalente al GH-4</div>
+    <p>Declaro que recibí, leí y entendí el contenido del documento <b>${esc(C.codigo)} ${esc(C.titulo)}</b>, versión ${esc(C.version)}, y que conozco las responsabilidades que me corresponden según mi cargo. Entiendo que incumplir los requisitos del Sistema Integrado de Gestión genera no conformidades que afectan a la organización y al proyecto.</p>
+    <label class="chk"><input type="checkbox" id="cDecl"${E.declarado?' checked':''}>
+      <span>Confirmo la declaración anterior, en calidad de <b>${esc(r.cargo)}</b>.</span></label>
+  </div>
+
+  <div id="zonaComp"${E.declarado?'':' hidden'}>
+    <div class="comp">
+      <div class="h">Comprobante de formación</div>
+      <div class="b">
+        <div class="lista">
+          <div><b>Nombre:</b> ${esc(r.nombre)}</div>
+          <div><b>Cédula:</b> <span class="num">${esc(r.cedula)}</span></div>
+          <div><b>Cargo:</b> ${esc(r.cargo)}</div>
+          <div><b>Proyecto:</b> ${esc(r.proyecto)}</div>
+          <div><b>Curso:</b> ${esc(C.codigo)} v${esc(C.version)} — ${esc(C.titulo)}</div>
+          <div><b>Fecha:</b> ${fechaLarga()}</div>
+          <div><b>Resultado:</b> <span class="num">${x.puntaje}%</span> · intento <span class="num">${E.intentos}</span> · <span class="num">${x.minutos}</span> min</div>
+        </div>
+        <div class="codigo" id="elCodigo">${esc(generarCodigo())}</div>
+        <div class="pie">
+          <button type="button" class="btn ancho" id="bCopiar">Copiar comprobante</button>
+        </div>
+        <p class="nota">Envíe este código a la Jefatura de Calidad por WhatsApp o correo. Con él se registra su formación en el tablero de seguimiento. No necesita enviar nada más.</p>
+      </div>
+    </div>
+    <div class="pie"><button type="button" class="btn gris" id="bReiniciar">Repasar el curso de nuevo</button></div>
+  </div>`;
+}
+
+/* ---------- copiar ---------- */
+async function copiar(){
+  const r = E.reg, x = E.resultado;
+  const texto = `COMPROBANTE DE FORMACIÓN — ING Ingeniería\n`
+    + `${C.codigo} v${C.version} · ${C.titulo}\n`
+    + `${r.nombre} · CC ${r.cedula}\n${r.cargo} · ${r.proyecto}\n`
+    + `${fechaLarga()} · ${x.puntaje}% · intento ${E.intentos}\n\n`
+    + generarCodigo();
+  try {
+    await navigator.clipboard.writeText(texto);
+    aviso('Comprobante copiado. Péguelo en WhatsApp o en el correo.');
+  } catch(e) {
+    const el = $('#elCodigo');
+    const sel = window.getSelection(); const rg = document.createRange();
+    rg.selectNodeContents(el); sel.removeAllRanges(); sel.addRange(rg);
+    aviso('Seleccionamos el código. Mantenga pulsado y elija Copiar.');
+  }
+}
+let tToast;
+function aviso(t){
+  clearTimeout(tToast);
+  let n = document.querySelector('.toast');
+  if (!n) { n = document.createElement('div'); n.className = 'toast'; document.body.appendChild(n); }
+  n.textContent = t;
+  tToast = setTimeout(() => n.remove(), 4200);
+}
+
+pintar();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Tablero de seguimiento de la formación del Sistema Integrado de Gestión.">
+<meta name="theme-color" content="#F7F9FB">
+<style>
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0}
+  [hidden]{display:none!important}
+  img{max-width:100%}
+</style>
+<title>Seguimiento de formación SIG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Tablero: resumen arriba, detalle por pestañas. Misma identidad que los cursos. */
+:root{
+  --papel:#EEF2F5; --carta:#FFFFFF; --tinta:#13202C; --gris:#5C7183;
+  --azul:#155E93; --azul-sup:#E2EDF5; --azul-bd:#B9D3E6;
+  --ambar:#9A6500; --ambar-sup:#FBF1DD; --ambar-bd:#E8CC97;
+  --ok:#0B7A4E; --ok-sup:#E1F2EA; --med:#B4791A; --med-sup:#FBF0DB; --mal:#A8362A; --mal-sup:#FAE9E6;
+  --bd:#D3DDE5; --bd2:#BAC8D3;
+  --som:0 1px 2px rgba(19,32,44,.07), 0 8px 22px -16px rgba(19,32,44,.3);
+  --ui:'Barlow',system-ui,-apple-system,Segoe UI,sans-serif;
+  --tit:'Barlow Condensed','Barlow',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --papel:#0E1821; --carta:#16232E; --tinta:#E6EEF4; --gris:#94A8B8;
+  --azul:#6CAEDC; --azul-sup:#13293A; --azul-bd:#27475E;
+  --ambar:#E0AC55; --ambar-sup:#2C2314; --ambar-bd:#4E3E1E;
+  --ok:#54C492; --ok-sup:#0F2A20; --med:#DDAA4D; --med-sup:#2B2313; --mal:#EE9080; --mal-sup:#2E1A16;
+  --bd:#283744; --bd2:#36485A;
+  --som:0 1px 2px rgba(0,0,0,.4), 0 8px 22px -16px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --papel:#0E1821; --carta:#16232E; --tinta:#E6EEF4; --gris:#94A8B8;
+  --azul:#6CAEDC; --azul-sup:#13293A; --azul-bd:#27475E;
+  --ambar:#E0AC55; --ambar-sup:#2C2314; --ambar-bd:#4E3E1E;
+  --ok:#54C492; --ok-sup:#0F2A20; --med:#DDAA4D; --med-sup:#2B2313; --mal:#EE9080; --mal-sup:#2E1A16;
+  --bd:#283744; --bd2:#36485A;
+  --som:0 1px 2px rgba(0,0,0,.4), 0 8px 22px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--papel);color:var(--tinta);font-family:var(--ui);font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+:is(button,input,select,textarea,a):focus-visible{outline:3px solid var(--ambar);outline-offset:2px;border-radius:4px}
+h1,h2,h3{margin:0;font-family:var(--tit);text-wrap:balance}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+
+.tope{background:var(--carta);border-bottom:1px solid var(--bd);position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+.tope .f{max-width:1120px;margin:0 auto;padding:12px 20px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.tope h1{font-size:20px;font-weight:700;letter-spacing:.01em}
+.tope .s{font-size:13px;color:var(--gris)}
+.tope .d{margin-left:auto;font-size:12.5px;color:var(--gris)}
+nav{max-width:1120px;margin:0 auto;padding:0 20px;display:flex;gap:4px;overflow-x:auto}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:9px 13px;cursor:pointer;
+  font-family:var(--tit);font-size:16px;font-weight:600;letter-spacing:.03em;color:var(--gris);white-space:nowrap}
+nav button:hover{color:var(--tinta)}
+nav button[aria-selected="true"]{color:var(--azul);border-bottom-color:var(--azul)}
+
+.marco{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:20px 60px;display:flex;flex-direction:column;gap:18px}
+.tarj{background:var(--carta);border:1px solid var(--bd);border-radius:10px;box-shadow:var(--som)}
+.tarj > h2{font-size:18px;font-weight:700;padding:14px 18px;border-bottom:1px solid var(--bd);letter-spacing:.02em}
+.tarj > h2 span{font-family:var(--ui);font-size:13px;font-weight:400;color:var(--gris);margin-left:8px}
+.tarj .b{padding:16px 18px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px}
+.kpi{background:var(--carta);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;box-shadow:var(--som)}
+.kpi .k{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gris)}
+.kpi .v{font-family:var(--tit);font-size:34px;font-weight:700;line-height:1.1;margin-top:3px}
+.kpi .d{font-size:13px;color:var(--gris);margin-top:2px}
+.kpi.b1{border-top:3px solid var(--azul)} .kpi.b2{border-top:3px solid var(--ambar)}
+
+.curso{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.cbloq{border:1px solid var(--bd);border-radius:10px;overflow:hidden;background:var(--carta);box-shadow:var(--som)}
+.cbloq .h{padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+@media (min-width:720px){.cbloq{display:flex;flex-direction:column}.cbloq .h{min-height:76px;align-items:flex-start;align-content:flex-start}.cbloq .b{flex:1}}
+.cbloq .h .t{font-family:var(--tit);font-size:17px;font-weight:700}
+.cbloq .h .c{font-size:11.5px;font-weight:600;letter-spacing:.06em;border-radius:3px;padding:2px 7px}
+.cbloq.sig .h .c{background:var(--azul-sup);color:var(--azul);border:1px solid var(--azul-bd)}
+.cbloq.int .h .c{background:var(--ambar-sup);color:var(--ambar);border:1px solid var(--ambar-bd)}
+.cbloq .b{padding:15px 16px}
+.medidor{height:26px;border-radius:5px;background:var(--papel);border:1px solid var(--bd);overflow:hidden;display:flex}
+.medidor i{display:block;height:100%}
+.medidor i + i{border-left:2px solid var(--carta)}
+.leyenda{display:flex;flex-wrap:wrap;gap:13px;margin-top:11px;font-size:13px}
+.leyenda span{display:flex;align-items:center;gap:6px;color:var(--gris)}
+.leyenda b{width:11px;height:11px;border-radius:2px;display:inline-block}
+.ray{background-image:repeating-linear-gradient(45deg,transparent 0 3px,var(--carta) 3px 5px)}
+.minik{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);
+  border-radius:7px;overflow:hidden;margin-top:14px}
+.minik > div{background:var(--carta);padding:9px 8px;text-align:center}
+.minik .k{font-size:11px;color:var(--gris);font-weight:600;letter-spacing:.03em;text-transform:uppercase}
+.minik .v{font-family:var(--tit);font-size:20px;font-weight:700;margin-top:1px}
+
+.tx{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--bd);white-space:nowrap}
+th{font-family:var(--tit);font-size:14px;font-weight:600;letter-spacing:.04em;color:var(--gris);background:var(--papel)}
+td.r,th.r{text-align:right}
+tbody tr:hover{background:var(--papel)}
+.bar{height:7px;border-radius:4px;background:var(--bd);min-width:68px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--azul)}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;border-radius:4px;padding:2px 8px}
+.chip.ok{background:var(--ok-sup);color:var(--ok)} .chip.med{background:var(--med-sup);color:var(--med)}
+.chip.mal{background:var(--mal-sup);color:var(--mal)} .chip.gris{background:var(--papel);color:var(--gris)}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1.5px solid var(--azul);background:var(--azul);
+  color:#fff;border-radius:7px;padding:10px 18px;font-size:15px;font-weight:600;cursor:pointer}
+.btn:hover{filter:brightness(1.1)}
+.btn.sec{background:transparent;color:var(--azul)}
+.btn.sec:hover{background:var(--azul-sup);filter:none}
+.btn.gris{background:transparent;border-color:var(--bd2);color:var(--gris)}
+.btn.gris:hover{background:var(--papel);color:var(--tinta)}
+.btn.sm{padding:6px 12px;font-size:13.5px}
+.fila{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:13px}
+textarea{width:100%;border:1.5px solid var(--bd2);border-radius:7px;padding:11px;font-size:14px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--carta);resize:vertical;line-height:1.5}
+input[type=text],input[type=number],select{border:1.5px solid var(--bd2);border-radius:6px;padding:8px 10px;background:var(--carta);font-size:14.5px}
+label.f{display:block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gris);margin-bottom:5px}
+.ayuda{font-size:13.5px;color:var(--gris);line-height:1.55;margin-top:9px}
+.ayuda code{background:var(--papel);border:1px solid var(--bd);border-radius:3px;padding:1px 5px;font-size:12.5px}
+.msg{margin-top:12px;border-radius:7px;padding:11px 13px;font-size:14px;line-height:1.5}
+.msg.ok{background:var(--ok-sup);border:1px solid var(--ok);color:var(--ok)}
+.msg.mal{background:var(--mal-sup);border:1px solid var(--mal);color:var(--mal)}
+.msg b{font-weight:700}
+.vacio{padding:34px 20px;text-align:center;color:var(--gris)}
+.vacio .t{font-family:var(--tit);font-size:20px;font-weight:700;color:var(--tinta);margin-bottom:7px}
+.vacio p{max-width:46ch;margin:0 auto;font-size:14.5px;line-height:1.6}
+.demo{background:var(--ambar-sup);border:1px solid var(--ambar-bd);border-left:4px solid var(--ambar);
+  border-radius:0 7px 7px 0;padding:11px 14px;font-size:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.demo b{color:var(--ambar)}
+svg.g{width:100%;height:auto;display:block;overflow:visible}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--tinta);color:var(--papel);
+  padding:11px 18px;border-radius:8px;font-size:14.5px;font-weight:500;z-index:50;box-shadow:0 8px 26px -8px rgba(0,0,0,.55)}
+@media (max-width:560px){ .tarj .b{padding:14px} nav{padding:0 14px} .marco{padding-inline:14px} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<header class="tope">
+  <div class="f">
+    <h1>Seguimiento de formación</h1>
+    <span class="s">Sistema Integrado de Gestión · ING Ingeniería</span>
+    <span class="d" id="dFecha"></span>
+  </div>
+  <nav id="nav" role="tablist"></nav>
+</header>
+<div class="marco" id="vista"></div>
+
+<script id="meta" type="application/json">{"cursos": {"SIG": {"codigo": "GD-8", "version": "18", "titulo": "Manual del Sistema Integrado de Gestión", "modulos": ["Qué es el Sistema Integrado de Gestión", "Quiénes somos: misión, visión y valores", "El mapa de procesos", "Política y objetivos del sistema", "Toma de conciencia: lo que se espera de usted", "Información documentada: trabajar con la versión vigente", "Comunicación del sistema", "Medición, auditoría y mejora"], "aprobacion": 80, "n": 16}, "INT": {"codigo": "INT-1", "version": "14", "titulo": "Procedimiento de Interventoría de Proyectos de Obras Civiles", "modulos": ["Objetivo, alcance y la regla de prelación", "Responsabilidades por cargo", "Planificación del servicio", "Iniciación del proyecto y la bitácora", "Supervisión técnica y sus formatos", "Supervisión administrativa y financiera", "Supervisión ambiental, social y SST", "Los informes: quién hace qué", "Entrega de obras y liquidación", "Marco normativo del procedimiento"], "aprobacion": 80, "n": 20}}, "preguntas": {"SIG:m1p1": ["¿Cuáles son las dos normas internacionales que integra el SIG de ING Ingeniería?", 0], "SIG:m1p2": ["¿A qué aplica el Manual del SIG?", 0], "SIG:m1p3": ["¿La empresa excluyó algún requisito de la norma ISO 9001?", 0], "SIG:m1p4": ["El alcance del sistema de gestión cubre:", 0], "SIG:m2p1": ["¿Cuántos valores corporativos tiene definidos ING Ingeniería?", 1], "SIG:m2p2": ["«Obramos con rectitud, reconociendo y asumiendo los propios errores» corresponde al valor de:", 1], "SIG:m2p3": ["Según la misión, la ingeniería de consulta se ejerce ajustada a:", 1], "SIG:m3p1": ["La Interventoría de obras civiles es un proceso de tipo:", 2], "SIG:m3p2": ["¿Cuál de estos es un proceso de apoyo?", 2], "SIG:m3p3": ["La Mejora continua está clasificada como proceso:", 2], "SIG:m4p1": ["¿En qué formato se consignan los resultados de los indicadores de gestión de calidad?", 3], "SIG:m4p2": ["¿Cuántos objetivos de calidad tiene definidos la organización?", 3], "SIG:m4p3": ["La política O-PE-15 corresponde a:", 3], "SIG:m4p4": ["Cada objetivo del sistema debe llevar obligatoriamente:", 3], "SIG:m5p1": ["Según el numeral 5.4 del manual, además de la política y los objetivos, el personal debe tom…", 4], "SIG:m5p2": ["¿En qué formato ratifica el trabajador que leyó y entendió sus responsabilidades y autoridad…", 4], "SIG:m5p3": ["Cuando se toman acciones para adquirir una competencia faltante, el sistema exige además:", 4], "SIG:m5p4": ["Una no conformidad es:", 4], "SIG:m6p1": ["Usted va a diligenciar un formato y quiere asegurarse de usar la versión correcta. ¿Dónde lo…", 5], "SIG:m6p2": ["¿Qué se hace con los documentos obsoletos?", 5], "SIG:m6p3": ["Los cambios y modificaciones a los documentos se consignan en:", 5], "SIG:m6p4": ["Un registro diligenciado a mano debe hacerse:", 5], "SIG:m7p1": ["¿Cuál de estos NO es un canal de comunicación oficial del sistema?", 6], "SIG:m7p2": ["El plan que rige las comunicaciones del sistema es:", 6], "SIG:m8p1": ["¿Con qué frecuencia mínima se realiza la auditoría interna?", 7], "SIG:m8p2": ["¿Cuál es el procedimiento de no conformidad y acción correctiva?", 7], "SIG:m8p3": ["Ante una no conformidad, la organización debe:", 7], "SIG:m8p4": ["Los comités de desempeño en SST se realizan con frecuencia:", 7], "SIG:m8p5": ["La revisión por la dirección se realiza:", 7], "INT:m1p1": ["El Cliente entregó su propio Manual de Interventoría con formatos distintos a los INT de la …", 0], "INT:m1p2": ["¿Cómo define el procedimiento la actividad de interventoría?", 0], "INT:m1p3": ["¿Cuántos tipos de actividades principales comprende la interventoría según el INT-1?", 0], "INT:m2p1": ["¿Quién es responsable de revisar los registros y visar los documentos del proyecto?", 1], "INT:m2p2": ["Definir la estructura documental que asegure la preservación de la información del proyecto …", 1], "INT:m2p3": ["La comunicación con el Cliente en aspectos legales y administrativos de alto impacto corresp…", 1], "INT:m2p4": ["Verificar la implementación del procedimiento INT-1 es responsabilidad de:", 1], "INT:m3p1": ["¿En qué plazo designa la Gerencia al Director del Proyecto?", 2], "INT:m3p2": ["¿En qué formato queda registrada la información del personal del proyecto?", 2], "INT:m3p3": ["¿Quiénes elaboran el INT-3 Plan de Calidad del Proyecto?", 2], "INT:m3p4": ["El acta donde se describen los recursos necesarios para el desarrollo del proyecto es:", 2], "INT:m4p1": ["¿Quién abre el libro bitácora y con qué fecha?", 3], "INT:m4p2": ["Con el acta de inicio, ¿quién debe solicitar la actualización de las garantías?", 3], "INT:m4p3": ["El contratista está ejecutando algo que se aparta del proyecto aprobado. ¿Qué hace el Reside…", 3], "INT:m4p4": ["La copia del libro bitácora:", 3], "INT:m5p1": ["El INT-8 Informe Diario de Inspección lo elabora el personal técnico y es:", 4], "INT:m5p2": ["En un proyecto de construcción de redes de alcantarillado, ¿qué normativa técnica se aplica?", 4], "INT:m5p3": ["¿En qué formato se registra el equipo del contratista indicando cuál opera, cuál está en rep…", 4], "INT:m5p4": ["Un equipo de medición alquilado a un proveedor externo se consigna en:", 4], "INT:m5p5": ["En una obra de edificación, los puntos de control incluyen replanteo, dimensiones, cimentaci…", 4], "INT:m5p6": ["El seguimiento fotográfico y la evidencia de instalación de la valla informativa se registra…", 4], "INT:m6p1": ["Los compromisos y responsables acordados en un comité de obra se consignan en:", 5], "INT:m6p2": ["Usted detecta que el contratista no está pagando la seguridad social de sus trabajadores. ¿D…", 5], "INT:m6p3": ["El acta de suspensión del contrato corresponde al formato:", 5], "INT:m6p4": ["El control de pólizas y garantías del contrato de obra se lleva en:", 5], "INT:m6p5": ["Para controlar el anticipo, el Director verifica el INT-28 contra:", 5], "INT:m7p1": ["El cumplimiento del Plan de Manejo Ambiental del contratista se reporta en:", 6], "INT:m7p2": ["Antes de iniciar obras que puedan afectar bienes de terceros, el contratista debe levantar:", 6], "INT:m7p3": ["La verificación de que el material inerte provenga de cantera autorizada se consigna en:", 6], "INT:m7p4": ["La gestión de elementos de protección personal en el proyecto está a cargo de:", 6], "INT:m8p1": ["¿Quién elabora el Informe Mensual de Interventoría?", 7], "INT:m8p2": ["¿Quién prepara el Informe Semanal?", 7], "INT:m8p3": ["El Informe de Gestión INT-53:", 7], "INT:m8p4": ["El Cliente se queja de la forma de presentación del informe mensual. ¿Qué procedimiento se a…", 7], "INT:m8p5": ["¿En qué formato se verifica mensualmente el cumplimiento en la entrega de los informes exigi…", 7], "INT:m8p6": ["Los informes extraordinarios se preparan:", 7], "INT:m9p1": ["El acta que se levanta en la visita final de inspección es:", 8], "INT:m9p2": ["¿Quién aprueba los planos récord?", 8], "INT:m9p3": ["El documento donde consta el valor inicial y final del contrato y el paz y salvo entre las p…", 8], "INT:m9p4": ["La certificación del trabajo ejecutado que se solicita al Cliente se remite a:", 8], "INT:m10p1": ["¿Cuáles son las dos normas ISO que referencia el procedimiento INT-1?", 9], "INT:m10p2": ["¿Dónde consulta usted cuál es la versión vigente de un formato INT?", 9], "INT:m10p3": ["La Resolución 0312 de 2019 referenciada en el procedimiento trata sobre:", 9]}}</script>
+<script>
+const M = JSON.parse(document.getElementById('meta').textContent);
+const LS = 'tablero-sig-v1';
+const $ = s => document.querySelector(s);
+const esc = t => String(t ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const num = (v,d=0) => (isFinite(v)?v:0).toLocaleString('es-CO',{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct = v => (isFinite(v)?Math.round(v*100):0) + '%';
+const COL = { SIG:'var(--azul)', INT:'var(--ambar)' };
+
+let T = { registros:[], objetivo:[], demo:false };
+try { const g = localStorage.getItem(LS); if (g) T = Object.assign(T, JSON.parse(g)); } catch(e){}
+const guardar = () => { try { localStorage.setItem(LS, JSON.stringify(T)); } catch(e){} };
+let tab = 'general';
+
+/* ---------- decodificación ---------- */
+function deb64(s){
+  const b = atob(s.replace(/-/g,'+').replace(/_/g,'/'));
+  return new TextDecoder().decode(Uint8Array.from(b, c => c.charCodeAt(0)));
+}
+function suma(s){ let n=0; for(let i=0;i<s.length;i++) n=(n*31+s.charCodeAt(i))%1296; return n.toString(36).toUpperCase().padStart(2,'0'); }
+
+function leerCodigo(raw){
+  const m = String(raw).trim().match(/^(SIG|INT)-([A-Za-z0-9\-_]+)-([A-Z0-9]{2})$/);
+  if (!m) return { error: 'No tiene el formato de un comprobante' };
+  if (suma(m[2]) !== m[3]) return { error: 'El código llegó incompleto o alterado' };
+  let txt;
+  try { txt = deb64(m[2]); } catch(e) { return { error: 'El código no se pudo leer' }; }
+  const c = txt.split('|');
+  if (c.length < 10 || c[0] !== m[1]) return { error: 'El contenido del código no es válido' };
+  const p = parseInt(c[6],10), it = parseInt(c[7],10), mi = parseInt(c[8],10);
+  if (!isFinite(p) || p < 0 || p > 100) return { error: 'El puntaje del código no es válido' };
+  return { reg: {
+    curso: c[0], cedula: c[1], nombre: c[2], cargo: c[3], proyecto: c[4], fecha: c[5],
+    puntaje: p, intentos: isFinite(it)?it:1, minutos: isFinite(mi)?mi:0,
+    erradas: c[9] ? c[9].split('.').filter(Boolean) : []
+  }};
+}
+function registrar(texto){
+  const encontrados = String(texto).match(/\b(?:SIG|INT)-[A-Za-z0-9\-_]{20,}-[A-Z0-9]{2}\b/g) || [];
+  let nuevos = 0, repetidos = 0, mejorados = 0;
+  const errores = [];
+  if (!encontrados.length) {
+    const l = leerCodigo(texto);
+    if (l.error) return { errores: [l.error], nuevos:0, repetidos:0, mejorados:0 };
+  }
+  encontrados.forEach(cod => {
+    const l = leerCodigo(cod);
+    if (l.error) { errores.push(l.error); return; }
+    const r = l.reg;
+    const i = T.registros.findIndex(x => x.curso === r.curso && x.cedula === r.cedula);
+    if (i === -1) { T.registros.push(r); nuevos++; }
+    else if (r.puntaje > T.registros[i].puntaje || r.fecha > T.registros[i].fecha) {
+      r.intentos = Math.max(r.intentos, T.registros[i].intentos);
+      T.registros[i] = r; mejorados++;
+    } else repetidos++;
+  });
+  guardar();
+  return { errores, nuevos, repetidos, mejorados };
+}
+
+/* ---------- cálculo ---------- */
+function aprobado(r){ return r.puntaje >= (M.cursos[r.curso]?.aprobacion ?? 80); }
+function personas(){
+  const s = new Map();
+  T.registros.forEach(r => { if (!s.has(r.cedula)) s.set(r.cedula, { cedula:r.cedula, nombre:r.nombre, cargo:r.cargo, proyecto:r.proyecto }); });
+  return [...s.values()];
+}
+function metricas(curso){
+  const rs = T.registros.filter(r => r.curso === curso);
+  const ap = rs.filter(aprobado);
+  const meta = T.objetivo.length || personas().length;
+  return {
+    inscritos: rs.length, aprobados: ap.length, reprobados: rs.length - ap.length,
+    sinIniciar: Math.max(0, meta - rs.length), meta,
+    cobertura: meta ? ap.length / meta : 0,
+    promedio: ap.length ? ap.reduce((a,r)=>a+r.puntaje,0) / ap.length : 0,
+    promedioTodos: rs.length ? rs.reduce((a,r)=>a+r.puntaje,0) / rs.length : 0,
+    primerIntento: rs.length ? rs.filter(r => aprobado(r) && r.intentos === 1).length / rs.length : 0,
+    intentos: rs.length ? rs.reduce((a,r)=>a+r.intentos,0) / rs.length : 0,
+    minutos: rs.length ? rs.reduce((a,r)=>a+r.minutos,0) / rs.length : 0
+  };
+}
+function porCargo(){
+  const m = new Map();
+  const base = T.objetivo.length ? T.objetivo : personas();
+  base.forEach(p => { if (!m.has(p.cargo)) m.set(p.cargo, { cargo:p.cargo, total:0, SIG:0, INT:0, punt:[] }); m.get(p.cargo).total++; });
+  T.registros.forEach(r => {
+    if (!m.has(r.cargo)) m.set(r.cargo, { cargo:r.cargo, total:0, SIG:0, INT:0, punt:[] });
+    const o = m.get(r.cargo);
+    if (aprobado(r)) o[r.curso]++;
+    o.punt.push(r.puntaje);
+  });
+  return [...m.values()].map(o => ({...o, prom: o.punt.length ? o.punt.reduce((a,b)=>a+b,0)/o.punt.length : null}))
+    .sort((a,b) => b.total - a.total || a.cargo.localeCompare(b.cargo,'es'));
+}
+function fallos(curso){
+  const c = new Map();
+  T.registros.filter(r => r.curso === curso).forEach(r => r.erradas.forEach(id => c.set(id, (c.get(id)||0) + 1)));
+  const n = T.registros.filter(r => r.curso === curso).length;
+  return [...c.entries()].map(([id,v]) => {
+    const info = M.preguntas[curso + ':' + id];
+    return { id, veces:v, tasa: n ? v/n : 0, q: info ? info[0] : id, mod: info ? info[1] : null };
+  }).sort((a,b) => b.veces - a.veces);
+}
+function pendientes(curso){
+  const hechos = new Set(T.registros.filter(r => r.curso===curso && aprobado(r)).map(r => r.cedula));
+  const base = T.objetivo.length ? T.objetivo : personas();
+  return base.filter(p => !hechos.has(p.cedula));
+}
+function serieTiempo(){
+  const f = new Map();
+  T.registros.forEach(r => {
+    if (!f.has(r.fecha)) f.set(r.fecha, { fecha:r.fecha, SIG:0, INT:0 });
+    if (aprobado(r)) f.get(r.fecha)[r.curso]++;
+  });
+  const arr = [...f.values()].sort((a,b) => a.fecha.localeCompare(b.fecha));
+  let s=0, i=0;
+  return arr.map(d => ({ ...d, aSIG: (s += d.SIG), aINT: (i += d.INT) }));
+}
+
+/* ---------- gráficas ---------- */
+function gLinea(datos){
+  const W=620,H=200,L=38,R=16,T0=14,B=34, iw=W-L-R, ih=H-T0-B;
+  if (datos.length < 2) return '';
+  const max = Math.max(4, ...datos.map(d => Math.max(d.aSIG, d.aINT)));
+  const x = i => L + (datos.length===1 ? iw/2 : iw*i/(datos.length-1));
+  const y = v => T0 + ih - ih*(v/max);
+  let g = '';
+  for (let k=0;k<=4;k++){ const v=max*k/4, yy=y(v);
+    g += `<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="var(--bd)" stroke-width="1"/>`
+      +  `<text x="${L-7}" y="${yy+4}" text-anchor="end" font-size="11" fill="var(--gris)">${Math.round(v)}</text>`; }
+  [['aSIG','SIG'],['aINT','INT']].forEach(([k,c]) => {
+    const d = datos.map((p,i) => `${i?'L':'M'}${x(i)} ${y(p[k])}`).join(' ');
+    g += `<path d="${d}" fill="none" stroke="${COL[c]}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    const li = datos.length-1;
+    g += `<circle cx="${x(li)}" cy="${y(datos[li][k])}" r="4.5" fill="${COL[c]}" stroke="var(--carta)" stroke-width="2"/>`;
+    g += `<text x="${x(li)+9}" y="${y(datos[li][k])+4}" font-size="12" font-weight="600" fill="${COL[c]}">${datos[li][k]}</text>`;
+  });
+  datos.forEach((p,i) => { if (i===0 || i===datos.length-1 || datos.length<7)
+    g += `<text x="${x(i)}" y="${H-B+16}" text-anchor="middle" font-size="11" fill="var(--gris)">${p.fecha.slice(5)}</text>`; });
+  return `<svg class="g" viewBox="0 0 ${W} ${H}" font-family="var(--ui)">${g}</svg>`;
+}
+function gBarras(items, color){
+  if (!items.length) return '';
+  const max = Math.max(...items.map(i => i.veces));
+  return `<div style="display:flex;flex-direction:column;gap:9px">` + items.map(i => `
+    <div>
+      <div style="display:flex;gap:10px;align-items:baseline;margin-bottom:4px">
+        <span style="font-size:14px;line-height:1.4;flex:1;min-width:0">${esc(i.q)}</span>
+        <span class="num" style="font-size:13px;font-weight:700;white-space:nowrap">${i.veces} ${i.veces===1?'persona':'personas'} · ${pct(i.tasa)}</span>
+      </div>
+      <div class="bar" style="height:9px"><i style="width:${Math.max(4,i.veces/max*100)}%;background:${color}"></i></div>
+    </div>`).join('') + `</div>`;
+}
+
+/* ---------- vistas ---------- */
+const TABS = [['general','Resumen'],['cargos','Por cargo'],['brechas','Brechas'],['pendientes','Pendientes'],['registrar','Registrar'],['datos','Personal y respaldo']];
+function pintar(){
+  $('#dFecha').textContent = new Date().toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'});
+  $('#nav').innerHTML = TABS.map(([k,t]) => `<button type="button" role="tab" data-t="${k}" aria-selected="${tab===k}">${t}</button>`).join('');
+  $('#nav').querySelectorAll('button').forEach(b => b.onclick = () => { tab = b.dataset.t; pintar(); window.scrollTo({top:0,behavior:'instant'}); });
+  ({general:vGeneral, cargos:vCargos, brechas:vBrechas, pendientes:vPendientes, registrar:vRegistrar, datos:vDatos})[tab]();
+}
+function avisoDemo(){
+  return T.demo ? `<div class="demo"><b>Datos de ejemplo.</b> Son registros ficticios para que vea cómo funciona el tablero.
+    <button type="button" class="btn sm gris" id="bLimpiarDemo" style="margin-left:auto">Borrar los ejemplos</button></div>` : '';
+}
+function ligarDemo(){ const b = $('#bLimpiarDemo'); if (b) b.onclick = () => { T = {registros:[],objetivo:[],demo:false}; guardar(); pintar(); }; }
+
+function vGeneral(){
+  if (!T.registros.length) return vacioGeneral();
+  const g = metricas('SIG'), i = metricas('INT');
+  const gente = personas();
+  const meta = T.objetivo.length || gente.length;
+  const ambos = gente.filter(p => ['SIG','INT'].every(c => T.registros.some(r => r.cedula===p.cedula && r.curso===c && aprobado(r)))).length;
+  const serie = serieTiempo();
+  const promG = [...T.registros].filter(aprobado);
+  $('#vista').innerHTML = `
+  ${avisoDemo()}
+  <div class="kpis">
+    <div class="kpi b1"><div class="k">Personas inscritas</div><div class="v num">${gente.length}</div>
+      <div class="d">${T.objetivo.length ? 'de ' + T.objetivo.length + ' del personal objetivo' : 'sin lista de personal cargada'}</div></div>
+    <div class="kpi"><div class="k">Completaron los dos cursos</div><div class="v num">${ambos}</div>
+      <div class="d">${pct(meta ? ambos/meta : 0)} del personal objetivo</div></div>
+    <div class="kpi"><div class="k">Puntaje promedio</div><div class="v num">${num(promG.length ? promG.reduce((a,r)=>a+r.puntaje,0)/promG.length : 0)}%</div>
+      <div class="d">sobre evaluaciones aprobadas</div></div>
+    <div class="kpi"><div class="k">Aprobó en el primer intento</div><div class="v num">${pct(T.registros.length ? T.registros.filter(r=>aprobado(r)&&r.intentos===1).length/T.registros.length : 0)}</div>
+      <div class="d">indicador de comprensión real</div></div>
+  </div>
+
+  <div class="curso">
+    ${bloqueCurso('SIG', g)}
+    ${bloqueCurso('INT', i)}
+  </div>
+
+  ${serie.length > 1 ? `<div class="tarj"><h2>Avance acumulado<span>personas que aprobaron, por fecha</span></h2>
+    <div class="b">${gLinea(serie)}
+      <div class="leyenda">
+        <span><b style="background:var(--azul)"></b>${esc(M.cursos.SIG.codigo)} Manual del SIG</span>
+        <span><b style="background:var(--ambar)"></b>${esc(M.cursos.INT.codigo)} Procedimiento de Interventoría</span>
+      </div></div></div>` : ''}
+  `;
+  ligarDemo();
+}
+function bloqueCurso(c, m){
+  const cl = c === 'SIG' ? 'sig' : 'int';
+  const col = COL[c];
+  const t = Math.max(1, m.meta);
+  return `<div class="cbloq ${cl}">
+    <div class="h"><span class="t">${esc(M.cursos[c].titulo)}</span><span class="c">${esc(M.cursos[c].codigo)} v${esc(M.cursos[c].version)}</span></div>
+    <div class="b">
+      <div class="medidor">
+        ${m.aprobados ? `<i style="width:${m.aprobados/t*100}%;background:${col}"></i>` : ''}
+        ${m.reprobados ? `<i class="ray" style="width:${m.reprobados/t*100}%;background-color:${col}"></i>` : ''}
+      </div>
+      <div class="leyenda">
+        <span><b style="background:${col}"></b>Aprobaron: <b style="background:none;width:auto;height:auto;color:var(--tinta);font-weight:700" class="num">${m.aprobados}</b></span>
+        ${m.reprobados ? `<span><b class="ray" style="background-color:${col}"></b>En curso: <b style="background:none;width:auto;height:auto;color:var(--tinta);font-weight:700" class="num">${m.reprobados}</b></span>` : ''}
+        ${m.sinIniciar ? `<span><b style="background:var(--bd)"></b>Sin iniciar: <b style="background:none;width:auto;height:auto;color:var(--tinta);font-weight:700" class="num">${m.sinIniciar}</b></span>` : ''}
+      </div>
+      <div class="minik">
+        <div><div class="k">Cobertura</div><div class="v num">${pct(m.cobertura)}</div></div>
+        <div><div class="k">Promedio</div><div class="v num">${num(m.promedio)}%</div></div>
+        <div><div class="k">Intentos</div><div class="v num">${num(m.intentos,1)}</div></div>
+      </div>
+    </div></div>`;
+}
+function vacioGeneral(){
+  $('#vista').innerHTML = `
+  <div class="tarj"><div class="vacio">
+    <div class="t">Todavía no hay comprobantes registrados</div>
+    <p>Cuando el personal termine un curso recibirá un código. Péguelo en la pestaña <b>Registrar</b> y aquí aparecerán la cobertura, el puntaje promedio y las brechas por cargo.</p>
+    <div class="fila" style="justify-content:center">
+      <button type="button" class="btn" id="bIrRegistrar">Registrar el primer comprobante</button>
+      <button type="button" class="btn sec" id="bDemo">Ver con datos de ejemplo</button>
+    </div>
+  </div></div>`;
+  $('#bIrRegistrar').onclick = () => { tab='registrar'; pintar(); };
+  $('#bDemo').onclick = cargarDemo;
+}
+function vCargos(){
+  const filas = porCargo();
+  $('#vista').innerHTML = `${avisoDemo()}
+  <div class="tarj"><h2>Cobertura por cargo<span>dónde está la brecha real</span></h2>
+    ${filas.length ? `<div class="tx"><table>
+      <thead><tr><th>Cargo</th><th class="r">Personal</th><th>Manual SIG</th><th>Interventoría</th><th class="r">Puntaje</th></tr></thead>
+      <tbody>${filas.map(f => {
+        const t = Math.max(f.total, f.SIG, f.INT, 1);
+        return `<tr>
+          <td style="white-space:normal"><b>${esc(f.cargo)}</b></td>
+          <td class="r num">${f.total || '—'}</td>
+          <td>${celdaAvance(f.SIG, t, 'var(--azul)')}</td>
+          <td>${celdaAvance(f.INT, t, 'var(--ambar)')}</td>
+          <td class="r">${f.prom===null ? '—' : `<span class="chip ${f.prom>=90?'ok':f.prom>=80?'med':'mal'}">${num(f.prom)}%</span>`}</td>
+        </tr>`; }).join('')}</tbody></table></div>`
+      : `<div class="vacio"><p>Registre comprobantes o cargue el listado de personal para ver el desglose por cargo.</p></div>`}
+  </div>
+  <p class="ayuda">Si un cargo concentra los puntajes bajos, ese es el grupo donde debe reforzar la divulgación. Es el dato que sustenta la acción correctiva ante el auditor.</p>`;
+  ligarDemo();
+}
+function celdaAvance(v, t, col){
+  return `<div style="display:flex;align-items:center;gap:9px"><div class="bar"><i style="width:${Math.min(100,v/t*100)}%;background:${col}"></i></div><span class="num" style="font-size:13px;font-weight:600">${v}</span></div>`;
+}
+function vBrechas(){
+  const fs = fallos('SIG'), fi = fallos('INT');
+  $('#vista').innerHTML = `${avisoDemo()}
+  <div class="tarj"><h2>Preguntas con más errores<span>qué no quedó claro</span></h2><div class="b">
+    ${(fs.length||fi.length) ? `
+      <h3 style="font-size:16px;font-weight:700;color:var(--azul);margin-bottom:11px">${esc(M.cursos.SIG.codigo)} · Manual del SIG</h3>
+      ${fs.length ? gBarras(fs.slice(0,6),'var(--azul)') : '<p class="ayuda">Sin errores registrados en este curso.</p>'}
+      <h3 style="font-size:16px;font-weight:700;color:var(--ambar);margin:24px 0 11px">${esc(M.cursos.INT.codigo)} · Procedimiento de Interventoría</h3>
+      ${fi.length ? gBarras(fi.slice(0,6),'var(--ambar)') : '<p class="ayuda">Sin errores registrados en este curso.</p>'}`
+      : `<div class="vacio"><p>Aquí aparecerán las preguntas que más se fallan, ordenadas por frecuencia.</p></div>`}
+  </div></div>
+  <p class="ayuda">Esta es la medición más útil para cerrar el hallazgo: señala el contenido específico que el personal no interiorizó, en vez de obligar a repetir toda la capacitación.</p>`;
+  ligarDemo();
+}
+function vPendientes(){
+  const ps = pendientes('SIG'), pi = pendientes('INT');
+  const tablaP = (lista, nombre) => lista.length ? `<div class="tx"><table>
+      <thead><tr><th>Nombre</th><th>Cédula</th><th>Cargo y proyecto</th></tr></thead>
+      <tbody>${lista.map(p => `<tr><td style="white-space:normal">${esc(p.nombre||'—')}</td><td class="num">${esc(p.cedula)}</td>
+        <td style="white-space:normal">${esc(p.cargo||'—')}${p.proyecto?`<br><span class="d">${esc(p.proyecto)}</span>`:''}</td></tr>`).join('')}</tbody></table></div>`
+    : `<div class="b"><span class="chip ok">Todos al día en ${nombre}</span></div>`;
+  $('#vista').innerHTML = `${avisoDemo()}
+  <div class="tarj"><h2>Pendientes del Manual del SIG<span>${ps.length} ${ps.length===1?'persona':'personas'}</span></h2>${tablaP(ps,'el Manual del SIG')}</div>
+  <div class="tarj"><h2>Pendientes del Procedimiento de Interventoría<span>${pi.length} ${pi.length===1?'persona':'personas'}</span></h2>${tablaP(pi,'Interventoría')}</div>
+  ${!T.objetivo.length ? `<p class="ayuda">Esta lista solo muestra a quienes ya iniciaron algún curso. Para saber quién no ha empezado, cargue el listado del personal objetivo en la pestaña <b>Personal y respaldo</b>.</p>` : ''}`;
+  ligarDemo();
+}
+function vRegistrar(){
+  $('#vista').innerHTML = `
+  <div class="tarj"><h2>Registrar comprobantes</h2><div class="b">
+    <label class="f" for="caja">Pegue aquí los códigos que le envíe el personal</label>
+    <textarea id="caja" rows="7" placeholder="SIG-U0lHfDUyMTIzNDU2fC..."></textarea>
+    <p class="ayuda">Puede pegar varios de una vez, uno por línea, o el mensaje completo de WhatsApp sin editarlo: el tablero extrae los códigos solos. Si una persona repite el curso, se conserva su mejor resultado.</p>
+    <div class="fila">
+      <button type="button" class="btn" id="bRegistrar">Registrar</button>
+      <button type="button" class="btn gris" id="bLimpiar">Limpiar</button>
+    </div>
+    <div id="rMsg"></div>
+  </div></div>
+  <div class="tarj"><h2>Comprobantes recibidos<span>${T.registros.length}</span></h2>
+    ${T.registros.length ? `<div class="tx"><table>
+      <thead><tr><th>Nombre</th><th>Cédula</th><th>Cargo</th><th>Curso</th><th class="r">Puntaje</th><th class="r">Intentos</th><th>Fecha</th><th></th></tr></thead>
+      <tbody>${[...T.registros].sort((a,b)=>b.fecha.localeCompare(a.fecha)).map((r,i) => `<tr>
+        <td style="white-space:normal">${esc(r.nombre)}</td><td class="num">${esc(r.cedula)}</td>
+        <td style="white-space:normal">${esc(r.cargo)}</td>
+        <td><span class="chip ${r.curso==='SIG'?'gris':'gris'}">${esc(M.cursos[r.curso].codigo)}</span></td>
+        <td class="r"><span class="chip ${aprobado(r)?'ok':'mal'}">${r.puntaje}%</span></td>
+        <td class="r num">${r.intentos}</td><td class="num">${esc(r.fecha)}</td>
+        <td class="r"><button type="button" class="btn sm gris" data-del="${esc(r.curso+'|'+r.cedula)}">Quitar</button></td>
+      </tr>`).join('')}</tbody></table></div>`
+      : `<div class="vacio"><p>Aún no hay comprobantes. Pegue el primero arriba.</p></div>`}
+  </div>`;
+  $('#bRegistrar').onclick = () => {
+    const v = $('#caja').value.trim();
+    if (!v) return;
+    const r = registrar(v);
+    const partes = [];
+    if (r.nuevos) partes.push(`<b>${r.nuevos}</b> ${r.nuevos===1?'comprobante nuevo':'comprobantes nuevos'}`);
+    if (r.mejorados) partes.push(`<b>${r.mejorados}</b> ${r.mejorados===1?'actualizado':'actualizados'}`);
+    if (r.repetidos) partes.push(`<b>${r.repetidos}</b> ya ${r.repetidos===1?'estaba':'estaban'} con mejor resultado`);
+    const m = $('#rMsg');
+    if (!partes.length && r.errores.length) m.innerHTML = `<div class="msg mal">No se registró nada. ${esc(r.errores[0])}. Pida que le reenvíen el código completo, sin cortar.</div>`;
+    else { $('#caja').value = ''; m.innerHTML = `<div class="msg ok">Registrado: ${partes.join(', ')}.${r.errores.length?` ${r.errores.length} código(s) con problema.`:''}</div>`;
+      setTimeout(() => vRegistrar(), 1400); }
+  };
+  $('#bLimpiar').onclick = () => { $('#caja').value=''; $('#rMsg').innerHTML=''; };
+  document.querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
+    const [c,ced] = b.dataset.del.split('|');
+    T.registros = T.registros.filter(r => !(r.curso===c && r.cedula===ced));
+    guardar(); vRegistrar();
+  });
+}
+function vDatos(){
+  $('#vista').innerHTML = `
+  <div class="tarj"><h2>Personal objetivo<span>${T.objetivo.length} ${T.objetivo.length===1?'persona':'personas'}</span></h2><div class="b">
+    <p class="ayuda" style="margin-top:0">Pegue aquí el listado del personal que debe tomar los cursos. Un renglón por persona, separando con punto y coma o tabulación:
+      <code>cédula;nombre;cargo;proyecto</code>. Sin esta lista, la cobertura se calcula solo sobre quienes ya iniciaron.</p>
+    <textarea id="cajaP" rows="6" placeholder="52123456;Alba Lucía Calderón;Director de Interventoría;PAS 50262">${esc(T.objetivo.map(p=>[p.cedula,p.nombre,p.cargo,p.proyecto].join(';')).join('\n'))}</textarea>
+    <div class="fila">
+      <button type="button" class="btn" id="bPersonal">Guardar listado</button>
+      <button type="button" class="btn gris" id="bBorrarP">Borrar listado</button>
+    </div>
+    <div id="pMsg"></div>
+  </div></div>
+
+  <div class="tarj"><h2>Reporte para gerencia</h2><div class="b">
+    <p class="ayuda" style="margin-top:0">Genera el resumen ejecutivo con los indicadores de cobertura y eficacia, listo para pegar en un correo o en el acta de seguimiento.</p>
+    <div class="fila">
+      <button type="button" class="btn" id="bResumen">Copiar resumen ejecutivo</button>
+      <button type="button" class="btn sec" id="bCsv">Copiar registro completo</button>
+    </div>
+    <div id="eMsg"></div>
+  </div></div>
+
+  <div class="tarj"><h2>Respaldo</h2><div class="b">
+    <p class="ayuda" style="margin-top:0">Los datos quedan guardados en este navegador. Copie el respaldo si va a cambiar de equipo o quiere conservar una copia.</p>
+    <div class="fila">
+      <button type="button" class="btn sec" id="bExp">Copiar respaldo</button>
+      <button type="button" class="btn gris" id="bImp">Restaurar desde respaldo</button>
+      <button type="button" class="btn gris" id="bReset" style="margin-left:auto">Borrar todo</button>
+    </div>
+    <div id="bMsg"></div>
+  </div></div>`;
+
+  $('#bPersonal').onclick = () => {
+    const filas = $('#cajaP').value.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+    const lista = [];
+    filas.forEach(l => {
+      const c = l.split(/[;\t]/).map(s => s.trim());
+      const ced = (c[0]||'').replace(/\D/g,'');
+      if (ced.length >= 6) lista.push({ cedula:ced, nombre:c[1]||'', cargo:c[2]||'Sin cargo', proyecto:c[3]||'' });
+    });
+    T.objetivo = lista; guardar();
+    $('#pMsg').innerHTML = lista.length ? `<div class="msg ok">Listado guardado: <b>${lista.length}</b> ${lista.length===1?'persona':'personas'}.</div>`
+      : `<div class="msg mal">No se reconoció ninguna línea. Verifique que cada renglón empiece por la cédula.</div>`;
+  };
+  $('#bBorrarP').onclick = () => { T.objetivo = []; guardar(); vDatos(); };
+  $('#bResumen').onclick = () => copiar(resumenEjecutivo(), 'Resumen copiado. Ya lo puede pegar.');
+  $('#bCsv').onclick = () => copiar(csv(), 'Registro copiado. Péguelo en Excel.');
+  $('#bExp').onclick = () => copiar(JSON.stringify(T), 'Respaldo copiado. Guárdelo en un archivo de texto.');
+  $('#bImp').onclick = () => {
+    const t = prompt ? null : null;
+    $('#bMsg').innerHTML = `<label class="f" style="margin-top:14px">Pegue aquí el respaldo</label>
+      <textarea id="cajaB" rows="4"></textarea>
+      <div class="fila"><button type="button" class="btn sm" id="bImpOk">Restaurar</button></div>`;
+    $('#bImpOk').onclick = () => {
+      try {
+        const d = JSON.parse($('#cajaB').value);
+        if (!Array.isArray(d.registros)) throw 0;
+        T = { registros:d.registros, objetivo:d.objetivo||[], demo:!!d.demo };
+        guardar(); tab='general'; pintar();
+      } catch(e) { $('#bMsg').innerHTML = `<div class="msg mal">Ese texto no es un respaldo válido.</div>`; }
+    };
+  };
+  $('#bReset').onclick = () => {
+    $('#bMsg').innerHTML = `<div class="msg mal">Esto borra todos los comprobantes y el listado de personal.
+      <button type="button" class="btn sm gris" id="bResetOk" style="margin-left:10px">Sí, borrar todo</button></div>`;
+    $('#bResetOk').onclick = () => { T = {registros:[],objetivo:[],demo:false}; guardar(); tab='general'; pintar(); };
+  };
+}
+
+/* ---------- salidas ---------- */
+function resumenEjecutivo(){
+  const g = metricas('SIG'), i = metricas('INT'), gente = personas();
+  const meta = T.objetivo.length || gente.length;
+  const ambos = gente.filter(p => ['SIG','INT'].every(c => T.registros.some(r => r.cedula===p.cedula && r.curso===c && aprobado(r)))).length;
+  const topS = fallos('SIG').slice(0,3), topI = fallos('INT').slice(0,3);
+  const L = [];
+  L.push('SEGUIMIENTO DE FORMACIÓN — SISTEMA INTEGRADO DE GESTIÓN');
+  L.push('ING Ingeniería S.A.S. · Corte ' + new Date().toLocaleDateString('es-CO'));
+  L.push('');
+  L.push('COBERTURA');
+  L.push(`Personal objetivo: ${meta}`);
+  L.push(`Personas inscritas: ${gente.length}`);
+  L.push(`Completaron ambos cursos: ${ambos} (${pct(meta?ambos/meta:0)})`);
+  L.push('');
+  [['SIG',g],['INT',i]].forEach(([c,m]) => {
+    L.push(`${M.cursos[c].codigo} — ${M.cursos[c].titulo}`);
+    L.push(`  Aprobados: ${m.aprobados} de ${m.meta} (${pct(m.cobertura)})`);
+    L.push(`  Puntaje promedio: ${num(m.promedio)}%`);
+    L.push(`  Aprobación en primer intento: ${pct(m.primerIntento)}`);
+    L.push(`  Intentos promedio: ${num(m.intentos,1)}`);
+    L.push('');
+  });
+  L.push('BRECHAS DE CONOCIMIENTO IDENTIFICADAS');
+  if (topS.length) { L.push(`${M.cursos.SIG.codigo}:`); topS.forEach(f => L.push(`  - ${f.q} (${f.veces} personas, ${pct(f.tasa)})`)); }
+  if (topI.length) { L.push(`${M.cursos.INT.codigo}:`); topI.forEach(f => L.push(`  - ${f.q} (${f.veces} personas, ${pct(f.tasa)})`)); }
+  if (!topS.length && !topI.length) L.push('  Sin errores registrados.');
+  L.push('');
+  L.push('PENDIENTES');
+  L.push(`  ${M.cursos.SIG.codigo}: ${pendientes('SIG').length} personas`);
+  L.push(`  ${M.cursos.INT.codigo}: ${pendientes('INT').length} personas`);
+  L.push('');
+  L.push('Evidencia: comprobante individual de formación con declaración de conocimiento (equivalente GH-4).');
+  return L.join('\n');
+}
+function csv(){
+  const q = v => `"${String(v??'').replace(/"/g,'""')}"`;
+  const cab = ['Cedula','Nombre','Cargo','Proyecto','Curso','Codigo','Fecha','Puntaje','Aprobado','Intentos','Minutos','PreguntasFalladas'];
+  const f = T.registros.map(r => [r.cedula,r.nombre,r.cargo,r.proyecto,M.cursos[r.curso].titulo,M.cursos[r.curso].codigo,
+    r.fecha,r.puntaje,aprobado(r)?'SI':'NO',r.intentos,r.minutos,r.erradas.join(' ')].map(q).join(';'));
+  return [cab.map(q).join(';'), ...f].join('\r\n');
+}
+async function copiar(texto, ok){
+  try { await navigator.clipboard.writeText(texto); aviso(ok); }
+  catch(e) {
+    const el = document.createElement('textarea');
+    el.value = texto; el.style.position='fixed'; el.style.opacity='0';
+    document.body.appendChild(el); el.select();
+    try { document.execCommand('copy'); aviso(ok); } catch(e2) { aviso('No se pudo copiar en este navegador.'); }
+    el.remove();
+  }
+}
+let tT;
+function aviso(t){
+  clearTimeout(tT);
+  let n = document.querySelector('.toast');
+  if (!n) { n = document.createElement('div'); n.className='toast'; document.body.appendChild(n); }
+  n.textContent = t; tT = setTimeout(() => n.remove(), 3600);
+}
+
+/* ---------- ejemplo ---------- */
+function cargarDemo(){
+  const base = [
+    ['52114488','Marcela Ríos Peña','Director de Interventoría','PAS 50262'],
+    ['79884412','Jorge Elías Noriega','Director de Interventoría','PAS 50262'],
+    ['1018447722','Camila Rentería Ávila','Coordinador Técnico de Interventoría','PAS 50262'],
+    ['80114477','Hernán Duque Salcedo','Residente de Interventoría','PAS 50262'],
+    ['1032447781','Yuliana Pardo Mejía','Residente de Interventoría','Vía Chía'],
+    ['94477120','Andrés Felipe Lamo','Residente de Interventoría','Vía Chía'],
+    ['52998741','Paola Andrea Quintero','Profesional SST','PAS 50262'],
+    ['1026558890','Nicolás Betancur Gil','Profesional Social','PAS 50262'],
+    ['41228855','Gloria Esperanza Rueda','Asesor de Calidad','Oficina Bogotá'],
+    ['80441290','Óscar Iván Machado','Inspector de Obra','Vía Chía']
+  ];
+  T.objetivo = base.map(b => ({cedula:b[0],nombre:b[1],cargo:b[2],proyecto:b[3]}));
+  const hoy = new Date();
+  const fecha = d => { const x = new Date(hoy); x.setDate(x.getDate()-d); return x.toISOString().slice(0,10); };
+  const ids = c => Object.keys(M.preguntas).filter(k => k.startsWith(c+':')).map(k => k.split(':')[1]);
+  const regs = [];
+  const plan = [[0,'SIG',94,1,6],[0,'INT',88,1,8],[1,'SIG',88,1,5],[1,'INT',75,2,9],[2,'SIG',100,1,4],[2,'INT',90,1,6],
+    [3,'SIG',81,2,7],[3,'INT',70,2,11],[4,'SIG',88,1,5],[5,'SIG',75,2,8],[6,'SIG',94,1,5],[6,'INT',85,1,7],
+    [7,'SIG',88,1,6],[8,'SIG',100,1,3],[8,'INT',95,1,5]];
+  plan.forEach(([pi,c,pts,it,dias],k) => {
+    const p = base[pi], pool = ids(c);
+    const nErr = Math.round(M.cursos[c].n * (100-pts)/100);
+    const erradas = [];
+    for (let j=0;j<nErr;j++) erradas.push(pool[(k*3+j*5) % pool.length]);
+    regs.push({ curso:c, cedula:p[0], nombre:p[1], cargo:p[2], proyecto:p[3], fecha:fecha(dias),
+      puntaje:pts, intentos:it, minutos:18+((k*7)%22), erradas:[...new Set(erradas)] });
+  });
+  T.registros = regs; T.demo = true; guardar(); tab='general'; pintar();
+}
+
+pintar();
+</script>
+
+</body>
+</html>
