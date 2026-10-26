@@ -132,6 +132,7 @@ label.f{display:block;font-size:12px;font-weight:600;letter-spacing:.04em;text-t
 .msg{margin-top:12px;border-radius:7px;padding:11px 13px;font-size:14px;line-height:1.5}
 .msg.ok{background:var(--ok-sup);border:1px solid var(--ok);color:var(--ok)}
 .msg.mal{background:var(--mal-sup);border:1px solid var(--mal);color:var(--mal)}
+.msg.med{background:var(--med-sup);border:1px solid var(--med);color:var(--med)}
 .msg b{font-weight:700}
 .vacio{padding:34px 20px;text-align:center;color:var(--gris)}
 .vacio .t{font-family:var(--tit);font-size:20px;font-weight:700;color:var(--tinta);margin-bottom:7px}
@@ -181,43 +182,128 @@ function deb64(s){
 }
 function suma(s){ let n=0; for(let i=0;i<s.length;i++) n=(n*31+s.charCodeAt(i))%1296; return n.toString(36).toUpperCase().padStart(2,'0'); }
 
-function leerCodigo(raw){
-  const m = String(raw).trim().match(/^(SIG|INT)-([A-Za-z0-9\-_]+)-([A-Z0-9]{2})$/);
-  if (!m) return { error: 'No tiene el formato de un comprobante' };
-  if (suma(m[2]) !== m[3]) return { error: 'El código llegó incompleto o alterado' };
+/* El teclado del celular "corrige" algunos caracteres al escribir o al reenviar:
+   la O detrás de un número se vuelve º (4O -> 4º), la A se vuelve ª, los guiones
+   se vuelven rayas largas. Aquí se devuelven a su forma original antes de leer. */
+function sanear(t){
+  return String(t)
+    .replace(/[\u00BA\u00B0\u02DA\u1D52\u2070]/g, 'O')
+    .replace(/[\u00AA\u1D43]/g, 'A')
+    .replace(/[\u2010-\u2015\u2212\u02D7]/g, '-')
+    .replace(/\u00A0/g, ' ')
+    .replace(/[\u200B-\u200D\uFEFF]/g, '');
+}
+
+/* Intenta armar el registro a partir del cuerpo del código. */
+function decodificar(prefijo, cuerpo){
   let txt;
-  try { txt = deb64(m[2]); } catch(e) { return { error: 'El código no se pudo leer' }; }
+  try { txt = deb64(cuerpo); } catch(e) { return { error: 'El código llegó incompleto o alterado' }; }
   const c = txt.split('|');
-  if (c.length < 10 || c[0] !== m[1]) return { error: 'El contenido del código no es válido' };
+  if (c.length < 10 || c[0] !== prefijo) return { error: 'El código llegó incompleto o alterado' };
   const p = parseInt(c[6],10), it = parseInt(c[7],10), mi = parseInt(c[8],10);
-  if (!isFinite(p) || p < 0 || p > 100) return { error: 'El puntaje del código no es válido' };
-  return { reg: {
+  if (!/^\d{5,12}$/.test(c[1]) || !/^\d{4}-\d{2}-\d{2}$/.test(c[5]) ||
+      !isFinite(p) || p < 0 || p > 100) return { error: 'El contenido del código no es válido' };
+  /* Señales de que el contenido salió entero y no es basura de dos códigos pegados.
+     Solo se exige cuando falta la verificación de dos letras del final. */
+  const TEXTO = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9 .,'()\/-]*$/;
+  const limpio = c.length === 10 && isFinite(it) && isFinite(mi) && mi >= 0 &&
+    c[2].length >= 3 && c[2].length <= 80 && TEXTO.test(c[2]) &&
+    c[3].length <= 80 && TEXTO.test(c[3]) &&
+    c[4].length <= 40 && TEXTO.test(c[4]) && /^[0-9.]*$/.test(c[9]);
+  return { limpio, reg: {
     curso: c[0], cedula: c[1], nombre: c[2], cargo: c[3], proyecto: c[4], fecha: c[5],
     puntaje: p, intentos: isFinite(it)?it:1, minutos: isFinite(mi)?mi:0,
     erradas: c[9] ? c[9].split('.').filter(Boolean) : []
   }};
 }
-function registrar(texto){
-  const encontrados = String(texto).match(/\b(?:SIG|INT)-[A-Za-z0-9\-_]{20,}-[A-Z0-9]{2}\b/g) || [];
-  let nuevos = 0, repetidos = 0, mejorados = 0;
-  const errores = [];
-  if (!encontrados.length) {
-    const l = leerCodigo(texto);
-    if (l.error) return { errores: [l.error], nuevos:0, repetidos:0, mejorados:0 };
+
+/* El código viaja por WhatsApp y a veces pierde la verificación de dos letras del
+   final, o le queda un guión suelto. Se prueba primero con verificación; si no,
+   se acepta el contenido cuando decodifica a un registro completo, pero queda
+   marcado como "sin verificar" para que Alba confirme los datos a mano. */
+function leerCodigo(raw){
+  const s = sanear(raw).trim();
+  const m = s.match(/^(SIG|INT)-([A-Za-z0-9\-_]+)$/);
+  if (!m) return { error: 'No tiene el formato de un comprobante' };
+  const resto = m[2], pruebas = [];
+  const v = resto.match(/^(.+)-([A-Za-z0-9]{2})$/);
+  if (v) pruebas.push([v[1], v[2].toUpperCase()]);
+  const podado = resto.replace(/[-_]+$/, '');
+  if (podado !== resto) pruebas.push([podado, null]);
+  pruebas.push([resto, null]);
+  let ultimo = 'El código llegó incompleto o alterado';
+  for (const [cuerpo, ver] of pruebas) {
+    const r = decodificar(m[1], cuerpo);
+    if (r.error) { ultimo = r.error; continue; }
+    if (ver !== null && ver === suma(cuerpo)) return r;
+    if (!r.limpio) { ultimo = 'El código llegó incompleto o alterado'; continue; }
+    r.reg.sinVerificar = true;
+    return r;
   }
-  encontrados.forEach(cod => {
+  return { error: ultimo };
+}
+
+/* Busca códigos en el texto tal como llegó y también con los saltos de línea
+   quitados, porque WhatsApp parte los códigos largos en varias líneas. */
+function candidatos(texto){
+  const t = sanear(texto), vistos = new Set(), lista = [];
+  const sumar = s => { if (s.length > 24 && !vistos.has(s)) { vistos.add(s); lista.push(s); } };
+  [t, t.replace(/\s+/g, '')].forEach(v => {
+    const re = /(?:SIG|INT)-[A-Za-z0-9\-_]{20,}/g;
+    let m;
+    while ((m = re.exec(v))) {
+      /* Al quitar los saltos de línea, dos comprobantes seguidos quedan pegados;
+         se prueba el trozo entero y también cortado en cada prefijo. */
+      m[0].split(/(?=(?:SIG|INT)-[A-Za-z0-9\-_]{20,})/).filter(Boolean).forEach(sumar);
+      sumar(m[0]);
+    }
+  });
+  return lista;
+}
+
+/* Dos nombres son la misma persona si uno contiene al otro o comparten dos
+   palabras: "YENCY RUBIANO" y "YENCY LORENA RUBIANO" sí; "KAREN SOFIA TORRES
+   LASSO" y "MARCO FIDEL GOMEZ CORREDOR" no. */
+function palabras(n){
+  return String(n).normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .toUpperCase().split(/[^A-Z]+/).filter(p => p.length > 1);
+}
+function mismaPersona(a, b){
+  const x = palabras(a), y = palabras(b);
+  if (!x.length || !y.length) return true;
+  const comunes = x.filter(p => y.includes(p));
+  return comunes.length >= Math.min(2, Math.min(x.length, y.length));
+}
+
+function registrar(texto){
+  let nuevos = 0, repetidos = 0, mejorados = 0, sinVerificar = 0;
+  const errores = [], choques = [], porFirma = new Map();
+  candidatos(texto).forEach(cod => {
     const l = leerCodigo(cod);
     if (l.error) { errores.push(l.error); return; }
-    const r = l.reg;
+    const f = [l.reg.curso, l.reg.cedula, l.reg.fecha, l.reg.puntaje].join('|');
+    const antes = porFirma.get(f);
+    if (!antes || (antes.sinVerificar && !l.reg.sinVerificar)) porFirma.set(f, l.reg);
+  });
+  const leidos = [...porFirma.values()];
+  if (!leidos.length) {
+    const l = leerCodigo(texto);
+    if (l.error) return { errores: [errores[0] || l.error], choques, nuevos:0, repetidos:0, mejorados:0, sinVerificar:0 };
+    leidos.push(l.reg);
+  }
+  leidos.forEach(r => {
     const i = T.registros.findIndex(x => x.curso === r.curso && x.cedula === r.cedula);
-    if (i === -1) { T.registros.push(r); nuevos++; }
+    if (i === -1) { T.registros.push(r); nuevos++; if (r.sinVerificar) sinVerificar++; }
+    else if (!mismaPersona(T.registros[i].nombre, r.nombre)) {
+      choques.push(`En ${M.cursos[r.curso].codigo} la cédula <b>${esc(r.cedula)}</b> ya está ocupada por <b>${esc(T.registros[i].nombre)}</b>, y este comprobante viene a nombre de <b>${esc(r.nombre)}</b>. Una de las dos personas se equivocó al escribir su documento. Quite el registro incorrecto y vuelva a pegar este código.`);
+    }
     else if (r.puntaje > T.registros[i].puntaje || r.fecha > T.registros[i].fecha) {
       r.intentos = Math.max(r.intentos, T.registros[i].intentos);
-      T.registros[i] = r; mejorados++;
+      T.registros[i] = r; mejorados++; if (r.sinVerificar) sinVerificar++;
     } else repetidos++;
   });
   guardar();
-  return { errores, nuevos, repetidos, mejorados };
+  return { errores, choques, nuevos, repetidos, mejorados, sinVerificar };
 }
 
 /* ---------- cálculo ---------- */
@@ -462,11 +548,32 @@ function vRegistrar(){
     </div>
     <div id="rMsg"></div>
   </div></div>
+  ${(() => {
+    const porCed = new Map();
+    T.registros.forEach(r => { if (!porCed.has(r.cedula)) porCed.set(r.cedula, []); porCed.get(r.cedula).push(r); });
+    const graves = [], leves = [];
+    porCed.forEach((rs, ced) => {
+      const nombres = [...new Set(rs.map(r => r.nombre))];
+      if (nombres.length < 2) return;
+      const distintas = nombres.some(a => nombres.some(b => !mismaPersona(a, b)));
+      (distintas ? graves : leves).push({ ced, nombres });
+    });
+    if (!graves.length && !leves.length) return '';
+    return `<div class="tarj"><h2>Documentos por revisar<span>${graves.length + leves.length}</span></h2>
+      ${graves.map(g => `<div class="msg mal">La cédula <b>${esc(g.ced)}</b> aparece con dos personas distintas:
+        ${g.nombres.map(n => `<b>${esc(n)}</b>`).join(' y ')}. Una de las dos escribió mal su documento al
+        inscribirse, y por eso un comprobante puede no estar entrando. Quite el registro equivocado y pida
+        a esa persona que repita el curso con su cédula correcta.</div>`).join('')}
+      ${leves.map(l => `<div class="msg med">La cédula <b>${esc(l.ced)}</b> está escrita con el nombre de dos
+        formas: ${l.nombres.map(n => `<b>${esc(n)}</b>`).join(' y ')}. Es la misma persona; los informes usarán
+        la primera forma.</div>`).join('')}
+    </div>`;
+  })()}
   <div class="tarj"><h2>Comprobantes recibidos<span>${T.registros.length}</span></h2>
     ${T.registros.length ? `<div class="tx"><table>
       <thead><tr><th>Nombre</th><th>Cédula</th><th>Cargo</th><th>Curso</th><th class="r">Puntaje</th><th class="r">Intentos</th><th>Fecha</th><th></th></tr></thead>
       <tbody>${[...T.registros].sort((a,b)=>b.fecha.localeCompare(a.fecha)).map((r,i) => `<tr>
-        <td style="white-space:normal">${esc(r.nombre)}</td><td class="num">${esc(r.cedula)}</td>
+        <td style="white-space:normal">${esc(r.nombre)}${r.sinVerificar?' <span class="chip med" title="El código llegó sin su verificación final. Confirme los datos con la persona.">sin verificar</span>':''}</td><td class="num">${esc(r.cedula)}</td>
         <td style="white-space:normal">${esc(r.cargo)}</td>
         <td><span class="chip ${r.curso==='SIG'?'gris':'gris'}">${esc(M.cursos[r.curso].codigo)}</span></td>
         <td class="r"><span class="chip ${aprobado(r)?'ok':'mal'}">${r.puntaje}%</span></td>
@@ -484,8 +591,12 @@ function vRegistrar(){
     if (r.mejorados) partes.push(`<b>${r.mejorados}</b> ${r.mejorados===1?'actualizado':'actualizados'}`);
     if (r.repetidos) partes.push(`<b>${r.repetidos}</b> ya ${r.repetidos===1?'estaba':'estaban'} con mejor resultado`);
     const m = $('#rMsg');
-    if (!partes.length && r.errores.length) m.innerHTML = `<div class="msg mal">No se registró nada. ${esc(r.errores[0])}. Pida que le reenvíen el código completo, sin cortar.</div>`;
-    else { $('#caja').value = ''; m.innerHTML = `<div class="msg ok">Registrado: ${partes.join(', ')}.${r.errores.length?` ${r.errores.length} código(s) con problema.`:''}</div>`;
+    const avisoChoque = (r.choques||[]).map(c => `<div class="msg mal">${c}</div>`).join('');
+    if (!partes.length && avisoChoque) m.innerHTML = avisoChoque;
+    else if (!partes.length && r.errores.length) m.innerHTML = `<div class="msg mal">No se registró nada. ${esc(r.errores[0])}. Pida que le reenvíen el código completo, sin cortar.</div>`;
+    else { $('#caja').value = ''; m.innerHTML = `<div class="msg ok">Registrado: ${partes.join(', ')}.${r.errores.length?` ${r.errores.length} código(s) con problema.`:''}</div>`
+        + avisoChoque
+        + (r.sinVerificar?`<div class="msg med">${r.sinVerificar===1?'Un comprobante llegó':`${r.sinVerificar} comprobantes llegaron`} sin la verificación del final, probablemente porque el código se cortó al copiarlo. El contenido se leyó completo y quedó guardado, pero aparece marcado <b>sin verificar</b>: confirme el nombre y el puntaje con la persona.</div>`:'');
       setTimeout(() => vRegistrar(), 1400); }
   };
   $('#bLimpiar').onclick = () => { $('#caja').value=''; $('#rMsg').innerHTML=''; };
